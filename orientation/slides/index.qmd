@@ -1,0 +1,150 @@
+---
+title: "Department of Spanish and Portuguese"
+subtitle: "Important Information for TAs AY 24-25"
+date: "Last update: `r Sys.Date()`"
+format: rutgers-revealjs
+engine: knitr
+execute: 
+  out.width: "100%"
+  fig.asp: 0.5625
+  dpi: 300
+---
+
+# Placement {.transition}
+
+## Placement (SAS Policy in Global Languages)
+
+::: {layout="[[-1], [1], [-1]]"}
+
+All students (heritage or non-heritage) who wish to enroll in classes in Spanish and Portuguese must take a placement exam IF they have taken two or more years of Spanish in high school. 
+
+:::
+
+## Placement (SAS Policy in Global Languages)
+
+Exceptions to this policy:
+
+- Less than two years can take 101 and 102 
+- Transfer students will start at the next level
+- Students that have received credit for AP Spanish and whose results are listed in DN
+- No native students should be registered in language classes (send them to me or to Luis)
+
+## Placement (SAS Policy in Global Languages)
+
+- ~~No student in SAS will receive credit for courses under placement.~~
+
+- ~~They will receive an "E" credit~~
+
+- ~~If you have a student that does not want to leave the course after being told he would not receive credit, send him/her and e-mail explaining that s/he will not receive credit and COPY ME, particularly if the student is from SAS~~
+
+## Placement (SAS Policy in Global Languages)
+
+- Placement exam closes **MONDAY, September 9th at 3 PM**. It reopens October 21st, 2024
+
+- Where can students find their placement results? Go to **MY COURSE LIST** tab in Degree Navigator.
+
+- **PLACEMENT** results are listed at the bottom of the page
+
+
+
+
+
+# Heritage/non-heritage students {.transition}
+
+## Heritage/non-heritage students
+
+- If you think you have a heritage student in a non-heritage class, contact Sara immediately
+  - Non heritage sequence: 101, 102 (or 121), 131, 132, 203, 204
+  - Heritage sequence: 139, 201, 202.  
+
+## Heritage/non-heritage students
+
+- If a heritage student is struggling in 139, let Sara know immediately. 
+- The student may need to go to 121 and then take 139
+- Heritage and non-heritage students may take 203/204 OR 201/202 during the same semester. 
+- They will be able to register on their own for 201/203 but will need an override for 202/204
+- 201 is not offered for the Fall 2024 semester, therefore Heritage students can register for 203 equivalent
+
+
+
+
+
+# Rutgers employees {.transition}
+
+## Rutgers employees
+
+- State employees: if you have an emergency, please let Sara know. She will report to me or Nuria
+- E-mail
+  - Affiliated with the University
+  - E-mail policy: please answer messages within 24 hours except on weekends, be sure to make it explicit that it will take you longer
+  - Do not give any grades via e-mail
+  - Follow netiquette when addressing your students
+
+## Rutgers employees
+
+- FERPA: You cannot discuss any academic issues with the parents of a student unless the student shows written consent authorizing the parents to get information
+
+- [Title IX Policy and Grievance Procedures](https://uec.rutgers.edu/wp-content/uploads/60-1-33-current-4.pdf)
+
+- Professional development: must attend all meetings, trainings, workshops
+
+
+## Rutgers employees
+
+- Academic Integrity: [Current Rutgers University Academic Integrity Policy](http://nbacademicintegrity.rutgers.edu/home/academic-integrity-policy/)
+
+- If a student is MIA more than three consecutive times without an excuse please send the student a note and CC me 
+
+- If there are no final exams in the course, instructor must turn in their grades 72 hours after their last class meeting
+
+
+# Academics {.transition}
+
+## How to be flexible and maintain accountability {.smaller}
+
+- If a student cannot maintain pace of the course, it is best that s/he drops the course (see next slide for important Fall 2024 Dates)
+- Be sure to file a warning grades when appropriate (you will receive a message from Registrars during week 8)
+- Office hours: on campus or video conference at least two hours per class per week
+- Accommodations for disabilities 
+- Online policy for deadlines
+- NO instructor should move the deadline to the reading day to accommodate students. - Instead, the student will receive a new deadline during exam week in consultation with Sara 
+- "T" grades are for students that are missing specific components of the course, not for a student that is missing over 75% of the course requirements
+
+
+## Important Fall 2023 Dates {.smaller}
+
+- Sept. 2: Labor Day - University closed
+- Sept. 3: Classes begin
+- Sept. 12: Last day to drop without a “W”, last day to add a course
+- Oct. 7-18: Warning grade period
+- Oct. 21: Spring term schedule visible
+- Oct. 28: Last day to withdraw from individual classes with a "W"
+- Nov. 11: Registration for Spring term starts
+- Dec. 11: Last day of classes
+- Dec. 12-13: Reading Days
+- Dec. 16-23: Final Exam period
+
+
+
+# {.transition}
+
+## Thank you {.final .smaller}
+
+![](https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/164.png){.absolute top="0" right="0" width="55" height="55"}
+
+</br>
+</br>
+
+[Language Coordinator]{.emph}  
+Sara Saez Fajardo  
+ss5241@spanport.rutgers.edu
+
+
+[Undergraduate Director]{.emph}  
+Joseph Casillas  
+joseph.casillas@rutgers.edu
+
+[Undergraduate Administrator]{.emph}  
+Jerlene Rodríguez  
+jerlene.rodriguez@rutgers.edu
+
