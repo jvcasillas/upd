@@ -502,9 +502,9 @@ In this space, please briefly describe how the assessment results were shared, o
 
 - Last month we discussed creating a survey to find out if/how out students use AI
 
-- Draft of survey available: bit.ly/sp-ai-survey
+- Draft of survey available: [bit.ly/sp-ai-survey](https://bit.ly/sp-ai-survey)
 
-- Please take a look and send feedback to me/Laura/Sara
+- Please take a look and send us (me/Laura/Sara) feedback
 
 
 
@@ -516,7 +516,9 @@ In this space, please briefly describe how the assessment results were shared, o
 - Course with out-of-print text book (Leyendas del mundo hispano)
   - 01:940:204
   - Also used previously in 01:940:202
+
 - Jerlene and I check every syllabus from SP24 and FA24
+
 - All texts available
 
 
