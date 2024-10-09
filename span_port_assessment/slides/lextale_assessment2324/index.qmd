@@ -1,0 +1,513 @@
+---
+title: "Department of Spanish and Portuguese: 2023-2024 assessment"
+subtitle: "Deptarment Meeting"
+author: "Joseph V. Casillas"
+institute: "Rutgers University"
+date: "2024-10-01 (Last update: `r Sys.Date()`)"
+format: rutgers-revealjs
+engine: knitr
+bibliography: ../../2324/bibliography.bib
+csl: ../../2324/apa.csl
+execute: 
+  out.width: "100%"
+  fig.asp: 0.5625
+  dpi: 300
+knitr:
+  opts_knit:
+    root.dir: "../../"
+---
+
+```{r}
+#| label: load-libs
+#| echo: false
+library("tidyverse")
+library("here")
+library("janitor")
+library("brms")
+library("ggdist")
+library("marginaleffects")
+library("patchwork")
+library("glue")
+library("scholar")
+library("emoji")
+library("knitr")
+```
+
+```{r}
+#| label: setup
+#| echo: false
+# Plot theme
+span_port_theme <- function(...) {
+  list(
+    theme_bw(base_family = "Palatino", ...), 
+    theme(
+      axis.title.y = element_text(size = rel(.9), hjust = 0.95),
+      axis.title.x = element_text(size = rel(.9), hjust = 0.95),
+      panel.grid.major = element_line(colour = 'grey90', linewidth = 0.15),
+      panel.grid.minor = element_line(colour = 'grey90', linewidth = 0.15))
+  )
+}
+
+# Round and format numbers to exactly N digits
+specify_decimal <- function(x, k) {
+  out <- trimws(format(round(x, k), nsmall = k))
+  return(out)
+}
+
+# Setup for 'nudgedodge'
+PositionNudgedodge <- ggproto("PositionNudgedodge", PositionDodge, 
+  x = 0, y = 0, width = 0.3,
+    
+  setup_params = function(self, data) {
+    l <- ggproto_parent(PositionDodge,self)$setup_params(data)
+      append(l, list(x = self$x, y = self$y))
+  },
+
+  compute_layer = function(self, data, params, layout) {
+    d <- ggproto_parent(PositionNudge,self)$compute_layer(data,params,layout)
+    d <- ggproto_parent(PositionDodge,self)$compute_layer(d,params,layout)
+    d
+  }
+)
+
+# Create 'nudgedoge' geom argument
+position_nudgedodge <- function(x = 0, y = 0, width = 0.75) {
+  ggproto(NULL, PositionNudgedodge, x = x, y = y, width = width)
+}
+
+```
+
+
+```{r}
+#| label: load-tidy-data
+#| echo: false
+
+syllabi <- bind_rows(
+  read_csv(here("2324", "syllabi", "2023_fall.csv")), 
+  read_csv(here("2324", "syllabi", "2024_spring.csv"))
+)
+
+lt_scored <- read_csv(here("lextale_ru", "processed_data", "lt_scored_2324.csv"))
+
+source(here("lextale_ru", "scripts", "06_tables.R"))
+
+# LexTALE info
+# Define ids for Kristin Lemhöfer and Fernando Cuetos
+id_kl <- "iEu7INIAAAAJ"
+id_fc <- "yN12ON8AAAAJ"
+
+# Get KL publications and filter for Lemhöfer & broersma (2012)
+# pull number of citations
+lextale_citations <- get_publications(id_kl) |> 
+  filter(cid == "7081282950987263577") |> 
+  pull(cites) |>
+  prettyNum(big.mark = ",")
+
+# Now do the same for LexTALE-ESP
+lextale_esp_citations <- get_publications(id_fc) |> 
+  filter(cid == "12545879072337610244") |> 
+  pull(cites) |>
+  prettyNum(big.mark = ",")
+```
+
+## Follow along {.unnumbered}
+
+{{< qrcode www.jvcasillas.com/upd/span_port_assessment/slides/lextale_assessment2324/index.html homepage width=500 height=500 colorDark='#cc0033' >}}
+
+## About the assessment
+
+- Learning goals
+- Department-specific assessment
+
+
+
+# Learning goals {.transition}
+
+```{r}
+#| label: syllabi-descriptives
+#| echo: false
+# Calculate dept and course goal averages
+lg_statements <- syllabi |> 
+  summarize(
+    perc_dept_goals = sum(includes_dept_goals) / nrow(syllabi), 
+    perc_course_goals = sum(includes_course_goals) / nrow(syllabi)
+  ) |> 
+  mutate(across(everything(), \(x) x * 100)) |> 
+  mutate(across(everything(), \(x) round(x, 2))) 
+```
+
+## SpanPort Learning Goals
+
+- Spanish: <https://span-port.rutgers.edu/learning-goals> 
+- Portuguese: <https://span-port.rutgers.edu/portuguese-learning-goals>
+
+
+## Are learning goals on syllabi? 
+
+- **Overwhelming majority**
+- [`r nrow(syllabi)`]{style="color: blue;"} syllabi scrutinized 
+- [`r lg_statements$perc_course_goals`]{style="color: blue;"}% included appropriate learning goal statements
+- [`r lg_statements$perc_dept_goals`]{style="color: blue;"}% included direct link to complete goals on  dept. website
+
+
+
+
+
+# Department-specific assessment {.transition}
+
+## Assessment topic
+
+::: {.callout-note icon="false"}
+## What question about student learning did your department investigate this year?
+
+In this space, please state the question about student learning that your department investigated this year.  
+
+Your question should be useful—answering it should help to inform your department's decisions about curriculum design, instructional practices, student advising, or other factors that impact student learning—and answering it should involve directly examining student learning.  
+
+The SAS Assessment Committee’s first priority is ensuring that assessment provides departments with useful information. For guidelines and examples of useful assessment questions, please visit sasoue.rutgers.edu/program-assessment/guidelines or contact SAS Director of Teaching, Learning, and Assessment David Goldman at dgoldman@sas.rutgers.edu.
+:::
+
+## Assessment topic
+
+### Language learning outcomes in distinct learning modalities
+
+- Many courses moved online after pandemic
+- Continued offering online classes to complement in-person classes
+
+<br>
+
+::: {.incremental}
+- [Is online teaching effective]{.emph} (keeping in mind dept. learning goals)?
+- [How do learner outcomes in hybrid/online-asynchronous courses compare to in-person courses]{.emph}?
+:::
+
+
+## Assessment topic {.smaller}
+
+### Language learning outcomes in distinct learning modalities
+
+::: {.incremental}
+- Focus on construct [**language proficiency**]{style="color: blue;"}
+- Difficult to operationalize and measure
+- Typically involve formal language testing/oral interviews (`r emoji("hourglass_flowing_sand")` `r emoji("money_with_wings")`)
+- Alternative method in some areas of linguistic research: [psycholinguistic tasks]{style="color: blue;"}
+- Benefits: 
+  1. Correlate with traditional measures of proficiency
+  2. Inexpensive 
+  3. Fast 
+:::
+
+
+
+
+
+
+## Methods
+
+::: {.callout-note icon="false"}
+## What methods did you use to answer your question about student learning? 
+
+In this space, please provide a brief overview of the way your department gathered information about student learning to answer the question posed above. Be sure to include a description of the student work that was examined and include any prompts, rubrics, or other instruments that you used.
+:::
+
+
+
+## Methods {.smaller}
+
+::: {.incremental}
+- Lexical Test for Advanced Learners of English [LexTALE, @lemhofer_broersma_2012] 
+  - Vocabulary test 
+  - Measures English proficiency by assessing vocabulary size through a lexical decision task
+- 60 lexical items (40 words and 20 pseudowords) 
+- Indicate whether each item is real word or not by pressing a key
+- Pseudowords are orthographically/phonologically legal
+- Score based on accuracy accepting real words and rejecting pseudowords
+- Range from 0 to 100
+:::
+
+## Methods {.smaller}
+
+- Lexical Test for Advanced Learners of Spanish [LexTALE-ESP, @Izura_et_al_2014] 
+- Similar methodology, but in Spanish
+  - 90 lexical items (60 real words and 30 pseudowords) 
+  - Scores also range from 0 to 100
+- LexTALE/LexTALE-ESP take approximately 4 minutes
+- [Important]{.emph}: Test of lexical knowledge, but many studies use it to operationalize proficiency
+  - Approx. `r lextale_citations` studies have used LexTALE and `r lextale_esp_citations` have used LexTALE-ESP 
+
+## Methods
+
+### Want to try? 
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- [bit.ly/spanport2024](https://run.pavlovia.org/jvcasillas/lextale_ru)
+- Enter 'test' for all of the required information, e.g., RUID = 'test'
+:::
+::::
+
+![](./img/bit.ly_spanport2024.png){.absolute top=75 right=-50 width="450" height="450"}
+
+
+## Methods
+
+- Instructors given flyers with QR codes, bitly links, and link available in the Canvas 
+
+- We asked students in basic language program to the LexTALE-ESP during first and last weeks of Sp24
+
+
+
+
+## Findings
+
+::: {.callout-note icon="false"}
+## Findings
+
+In this space, please summarize your findings and your interpretation of your findings.
+:::
+
+## Findings
+
+- [`r sum(enrollment$enrollment)`]{style="color: blue;"} enrolled students (`r lt_scored |> pull(course) |> unique() |> sort() |> str_to_upper() |> str_c() |> knitr::combine_words(words = _, before = "*")` during Sp24 ([`r nrow(completion_table)`]{style="color: blue;"} sections) 
+- [`r lt_scored |> pull(ruid) |> unique() |> length()`]{style="color: blue;"} completed LexTALE-ESP
+- Participation strong initially (n = `r sum(completion_table[, 5])`, [`r round(sum(completion_table[, 5]) / sum(completion_table[, 4]) * 100, digits = 2)`]{style="color: blue;"}%)
+- ...but decreased in the post-test phase (n = `r sum(completion_table[, 6])`, [`r round(sum(completion_table[, 6]) / sum(enrollment$enrollment) * 100, digits = 2)`]{style="color: blue;"}%)
+- Total of [`r rate_improvement[4, 4]`]{style="color: blue;"} students completed both phases of the task ([`r round(rate_improvement[4, 4] / sum(enrollment$enrollment) * 100, digits = 2)`]{style="color: blue;"}%) 
+- Analyses using data from students completing both phases
+
+
+## Findings
+
+```{r}
+#| label: lt-descriptives
+#| echo: false
+
+overall <- lt_scored |> 
+  filter(ruid %in% complete_case_ids) |> 
+  group_by(session) |> 
+  summarize(avg = mean(lextale_avg), sd = sd(lextale_avg)) |> 
+  mutate_if(is.numeric, round, digits = 2) |> 
+  mutate(
+    print = glue("{avg}% (SD = {sd})")
+  )
+
+by_modality <- lt_scored |> 
+  filter(ruid %in% complete_case_ids) |> 
+  group_by(modality, session) |> 
+  summarize(avg = mean(lextale_avg), sd = sd(lextale_avg), .groups = "drop") |> 
+  mutate_if(is.numeric, round, digits = 2) |> 
+  mutate(
+    print = glue("{avg}% (SD = {sd})")
+  )
+
+```
+
+- Marginal improvement overall
+  - Pre-test: **`r overall[1, 4]`**
+  - Post-test: **`r overall[2, 4]`**
+- Stratifying by modality, higher rate of improvement in online and hybrid courses...
+
+. . .
+
+...but very few in-person sections.
+
+
+
+## Findings
+
+```{r}
+lt_mod_dat <- lt_scored |> 
+  filter(ruid %in% complete_case_ids) |> 
+  select(ruid, modality, session, lextale_avg) |> 
+  mutate(modality = str_to_title(modality)) 
+
+lt_mod_2024 <- brm(
+  lextale_avg ~ 0 + session:modality + (1 | ruid), 
+  iter = 2000, cores = 8, chains = 4,
+  file = here("mods", "2024_lt_mod"), 
+  data = lt_mod_dat
+)
+
+lt_posterior <- as_tibble(lt_mod_2024) |> 
+  select(starts_with("b_")) |> 
+  pivot_longer(cols = everything(), names_to = "param", values_to = "estimate") |>
+  separate(col = param, into = c("session", "modality"), sep = ":") |>
+  mutate(
+    modality = case_when(
+      modality == "modalityOnlineMAsynchronous" ~ "Online\nAsynchronous",
+      modality == "modalityHybrid" ~ "Hybrid", 
+      modality == "modalityInMPerson" ~ "In-Person"
+    ), 
+    session = if_else(session == "b_sessionbeginningMofMsemester", "Pre", "Post")
+  ) 
+
+```
+
+```{r}
+lt_posterior |> 
+  ggplot() + 
+  aes(x = estimate, y = modality, group = session, fill = session) + 
+  stat_halfeye(position = position_dodge(0.75), slab_alpha = 0.8, pch = 21, 
+               point_fill = "white") + 
+  geom_point(
+    data = mutate(lt_mod_dat, 
+      modality = if_else(modality == "Online-Asynchronous", 
+                         "Online\nAsynchronous", modality), 
+      session = if_else(session == "beginning-of-semester", "Pre", "Post")
+      ), 
+    mapping = aes(x = lextale_avg, y = modality, fill = session), 
+    position = position_nudgedodge(y = -0.075, width = 0.75), pch = 21, 
+    color = "white", alpha = 0.5
+  ) + 
+  labs(y = NULL, x = "Score") + 
+  scale_fill_viridis_d(name = NULL, begin = 0.2, end = 0.85) + 
+  span_port_theme(base_size = 20) + 
+  theme(strip.background = element_rect(fill = NA)) + 
+  NULL
+```
+
+## Findings
+
+```{r}
+lt_posterior |> 
+  group_by(session) |> 
+  mutate(row = row_number()) |> 
+  pivot_wider(names_from = "session", values_from = "estimate") |> 
+  mutate(diff = Post - Pre) |> 
+  ggplot() + 
+  aes(x = diff, y = modality, fill = modality) + 
+  geom_vline(xintercept = 0, lty = 3) + 
+  stat_halfeye(slab_alpha = 0.8, pch = 21, point_fill = "white", show.legend = F) + 
+  labs(y = NULL, x = "Improvement\n(Post - Pre)") + 
+  scale_fill_viridis_d(name = NULL, begin = 0.2, end = 0.85) + 
+  span_port_theme(base_size = 20) + 
+  theme(strip.background = element_rect(fill = NA)) + 
+  NULL
+```
+
+
+## Findings {.smaller}
+
+<br><br><br>
+
+```{r}
+#| label: tbl-improvement
+#| echo: false
+#| tbl-cap: Descriptive statistics of LexTALE-ESP participation. The table includes the number of complete cases, the number of students with decreasing and increasing scores in the post-test, as well as the overall percentage of students showing improvement for each modality.
+
+rate_improvement |> 
+  ungroup() |> 
+  select(
+    Modality = modality, N = complete_cases, 
+    `Score ↓` = `0`, `Score ↑` = `1`, 
+    `%↑` = rate
+  ) |> 
+  mutate(
+    Modality = str_to_title(Modality), 
+    Modality = if_else(Modality == "Overall", "*Overall*", Modality)
+  ) |> 
+  mutate_all(as.character) |> 
+  add_row(
+    Modality = " ", 
+    N = " ", 
+    `Score ↓` = " ", 
+    `Score ↑` = " ", 
+    `%↑` = " ", 
+    .before = 1
+    ) |> 
+  add_row(
+    Modality = "--", 
+    N = " ", 
+    `Score ↓` = " ", 
+    `Score ↑` = " ", 
+    `%↑` = " ", 
+    .before = 5
+    ) |> 
+  kable(align = c("l", "r", "r", "r", "r")) 
+```
+
+
+
+
+
+## Implications
+
+::: {.callout-note icon="false"}
+## Please briefly explain how your department has used, or plans to use, the information collected. 
+
+In this space, please briefly describe how the assessment results were shared, or will be shared, with the faculty in your department. Then identify your department’s next steps and the timeframe during which your department expects to take its next steps.
+:::
+
+
+
+## Implications
+
+- The initial outlook obtained from the data is positive. 
+
+- the majority of students in online-asynchronous and hybrid courses showed improvement on the LexTALE-ESP task over the course of one semester. 
+
+- The majority of students in the online-asynchronous and hybrid classes increase their proficiency, as measured by this task. 
+
+## Implications
+
+- results should be interpreted with caution for several reasons. 
+  - First, the overall amount of complete cases is small. 
+  - This is particularly true for the in-person modality (n = 11). 
+  - one should avoid the temptation of concluding that the online courses have *better* outcomes than the in-person courses. 
+  - Put simply, more data is needed. 
+
+## Implications
+
+- Second, the sections included in this assessment are all 100-level courses. 
+  - It seems feasible to assume that more progress may be made in general proficiency at the 200 or 300 levels. 
+  - It is also possible that any modality effects can differ at different stages of the program and/or different stages of learning. 
+  - The decision to start our assessment at this level was a practical one - easy recruitment 
+
+## Implications
+
+- future assessments could build upon these data by including courses at the 200-400 levels. 
+- Finally, our assessment of proficiency is useful, but surely leaves out many critical components of this complex construct. 
+- For instance, a task of this nature cannot tell us anything about intercultural competence, which is also a key part of the departmental learning goals. 
+
+- Nonetheless, the LexTALE-ESP has been found to be serviceable by many researchers and more and more language departments are beginning to use it for placement purposes.  
+
+## Next steps...
+
+- discussions about increasing the number of online-asynchronous and hybrid courses, and/or making online-asynchronous/hybrid versions of courses that are currently only offered in person
+
+- general assessment can be expanded to include other levels, as well as continue tracking the 100-level students that have already participated as they continue through our program. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## This is the final slide {.final}
+
+![](https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/164.png){.absolute top="0" right="0" width="55" height="55"}
+
+</br>
+
+### you can add your email, twitter, github, etc. info here
+
+Here is an example:
+
+|                                                                             |                                    |
+|----------------------------------------------------------------------------:|:-----------------------------------|
+|   <a href='mailto:joseph.casillas@rutgers.edu'>{{< fa solid envelope >}}</a>|joseph.casillas@rutgers.edu         |
+| <a href='www.jvcasillas.com/quarto-rutgers-theme/'>{{< fa solid link >}}</a>|jvcasillas.com/quarto-rutgers-theme |
+|         <a href='https://twitter.com/jvcasill'>{{< fa brands twitter >}}</a>|\@jvcasill                           |
+|         <a href='https://github.com/jvcasillas'>{{< fa brands github >}}</a>|\@jvcasillas                         |
+
+: {tbl-colwidths="[25,75]"}
+
+## References
