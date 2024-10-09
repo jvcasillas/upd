@@ -3,7 +3,7 @@ title: "Department of Spanish and Portuguese: 2023-2024 assessment"
 subtitle: "Deptarment Meeting"
 author: "Joseph V. Casillas"
 institute: "Rutgers University"
-date: "2024-10-01 (Last update: `r Sys.Date()`)"
+date: "2024-10-09 (Last update: `r Sys.Date()`)"
 format: rutgers-revealjs
 engine: knitr
 bibliography: ../../2324/bibliography.bib
@@ -110,9 +110,11 @@ lextale_esp_citations <- get_publications(id_fc) |>
   prettyNum(big.mark = ",")
 ```
 
-## Follow along {.unnumbered}
+## Follow along {visibility="uncounted"}
 
-{{< qrcode www.jvcasillas.com/upd/span_port_assessment/slides/lextale_assessment2324/index.html homepage width=500 height=500 colorDark='#cc0033' >}}
+[bit.ly/sp-assessment2324](https://bit.ly/sp-assessment2324)
+
+{{< qrcode www.jvcasillas.com/upd/span_port_assessment/slides/lextale_assessment2324/index.html homepage width=400 height=400 colorDark='#000' >}}
 
 ## About the assessment
 
@@ -121,7 +123,7 @@ lextale_esp_citations <- get_publications(id_fc) |>
 
 
 
-# Learning goals {.transition}
+# Learning goals {.transition visibility="uncounted"}
 
 ```{r}
 #| label: syllabi-descriptives
@@ -153,7 +155,7 @@ lg_statements <- syllabi |>
 
 
 
-# Department-specific assessment {.transition}
+# Department-specific assessment {.transition visibility="uncounted"}
 
 ## Assessment topic
 
@@ -269,13 +271,14 @@ In this space, please summarize your findings and your interpretation of your fi
 
 ## Findings
 
+::: {.incremental}
 - [`r sum(enrollment$enrollment)`]{style="color: blue;"} enrolled students (`r lt_scored |> pull(course) |> unique() |> sort() |> str_to_upper() |> str_c() |> knitr::combine_words(words = _, before = "*")` during Sp24 ([`r nrow(completion_table)`]{style="color: blue;"} sections) 
 - [`r lt_scored |> pull(ruid) |> unique() |> length()`]{style="color: blue;"} completed LexTALE-ESP
 - Participation strong initially (n = `r sum(completion_table[, 5])`, [`r round(sum(completion_table[, 5]) / sum(completion_table[, 4]) * 100, digits = 2)`]{style="color: blue;"}%)
 - ...but decreased in the post-test phase (n = `r sum(completion_table[, 6])`, [`r round(sum(completion_table[, 6]) / sum(enrollment$enrollment) * 100, digits = 2)`]{style="color: blue;"}%)
 - Total of [`r rate_improvement[4, 4]`]{style="color: blue;"} students completed both phases of the task ([`r round(rate_improvement[4, 4] / sum(enrollment$enrollment) * 100, digits = 2)`]{style="color: blue;"}%) 
 - Analyses using data from students completing both phases
-
+:::
 
 ## Findings
 
@@ -443,71 +446,95 @@ In this space, please briefly describe how the assessment results were shared, o
 
 ## Implications
 
-- The initial outlook obtained from the data is positive. 
+::: {.incremental}
+- Initial outlook is positive
 
-- the majority of students in online-asynchronous and hybrid courses showed improvement on the LexTALE-ESP task over the course of one semester. 
+- Majority of students in online-asynchronous and hybrid courses showed improvement on the LexTALE-ESP over the course of semester
 
-- The majority of students in the online-asynchronous and hybrid classes increase their proficiency, as measured by this task. 
-
-## Implications
-
-- results should be interpreted with caution for several reasons. 
-  - First, the overall amount of complete cases is small. 
-  - This is particularly true for the in-person modality (n = 11). 
-  - one should avoid the temptation of concluding that the online courses have *better* outcomes than the in-person courses. 
-  - Put simply, more data is needed. 
+- Interpretation: majority of students in online-asynchronous/hybrid classes increase proficiency, as measured by this task
+:::
 
 ## Implications
 
-- Second, the sections included in this assessment are all 100-level courses. 
-  - It seems feasible to assume that more progress may be made in general proficiency at the 200 or 300 levels. 
-  - It is also possible that any modality effects can differ at different stages of the program and/or different stages of learning. 
-  - The decision to start our assessment at this level was a practical one - easy recruitment 
+::: {.incremental}
+- Interpret with caution 
+  - Overall amount of complete cases is small 
+  - Especially for in-person modality (n = 11)
+  - Avoid temptation of concluding online courses have *better* outcomes than in-person courses
+  - Need more data
+:::
 
 ## Implications
 
-- future assessments could build upon these data by including courses at the 200-400 levels. 
-- Finally, our assessment of proficiency is useful, but surely leaves out many critical components of this complex construct. 
-- For instance, a task of this nature cannot tell us anything about intercultural competence, which is also a key part of the departmental learning goals. 
+::: {.incremental}
+- Sections included in assessment are all 100-level courses
+  - Seems feasible to assume more progress can be made in proficiency at 200+ levels 
+  - Also possible that any modality effects can differ at different stages of program and/or different stages of learning
+  - The decision to start assessment at 100 level was practical - easy recruitment 
+:::
 
-- Nonetheless, the LexTALE-ESP has been found to be serviceable by many researchers and more and more language departments are beginning to use it for placement purposes.  
+
+## Implications 
+
+::: {.incremental}
+- Future assessments: build on these data by including courses at 200+ levels. 
+- Overall, our assessment of proficiency is useful, but incomplete (proficiency is complicated)
+- For instance, this type of task cannot tell us anything about intercultural competence (also key part of the departmental learning goals)
+
+- LexTALE-ESP = useful
+- Other language departments are starting to use it for placement purposes
+:::
 
 ## Next steps...
 
-- discussions about increasing the number of online-asynchronous and hybrid courses, and/or making online-asynchronous/hybrid versions of courses that are currently only offered in person
+::: {.incremental}
+- Departmental discussions 
+  - ...increase number of online-asynchronous and hybrid courses?
+  - ...make online-asynchronous/hybrid versions of courses only offered in person?
 
-- general assessment can be expanded to include other levels, as well as continue tracking the 100-level students that have already participated as they continue through our program. 
-
-
-
-
-
-
+- General assessment will expand to other levels, provide longitudinal data of 100-level students as they continue through our program
+:::
 
 
+# AI survey {.transition visibility="uncounted"}
+
+## AI survey
+
+- Last month we discussed creating a survey to find out if/how out students use AI
+
+- Draft of survey available: bit.ly/sp-ai-survey
+
+- Please take a look and send feedback to me/Laura/Sara
+
+
+
+
+# Syllabi audit {.transition visibility="uncounted"}
+
+## Syllabi audit
+
+- Course with out-of-print text book (Leyendas del mundo hispano)
+  - 01:940:204
+  - Also used previously in 01:940:202
+- Jerlene and I check every syllabus from SP24 and FA24
+- All texts available
 
 
 
 
 
-
-## This is the final slide {.final}
+## Gracias {.final visibility="uncounted"}
 
 ![](https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/164.png){.absolute top="0" right="0" width="55" height="55"}
 
 </br>
 
-### you can add your email, twitter, github, etc. info here
-
-Here is an example:
-
-|                                                                             |                                    |
-|----------------------------------------------------------------------------:|:-----------------------------------|
-|   <a href='mailto:joseph.casillas@rutgers.edu'>{{< fa solid envelope >}}</a>|joseph.casillas@rutgers.edu         |
-| <a href='www.jvcasillas.com/quarto-rutgers-theme/'>{{< fa solid link >}}</a>|jvcasillas.com/quarto-rutgers-theme |
-|         <a href='https://twitter.com/jvcasill'>{{< fa brands twitter >}}</a>|\@jvcasill                           |
-|         <a href='https://github.com/jvcasillas'>{{< fa brands github >}}</a>|\@jvcasillas                         |
+|                              |                                            |
+| ---------------------------: | :----------------------------------------- |
+| <a>{{< fa solid link >}}</a> | Slides: [bit.ly/sp-assessment2324]{.emph}  |
+| <a>{{< fa solid link >}}</a> | LexTALE task: [bit.ly/spanport2024]{.emph} |
+| <a>{{< fa solid link >}}</a> | AI survey: [bit.ly/sp-ai-survey]{.emph}    |
 
 : {tbl-colwidths="[25,75]"}
 
-## References
+## References {visibility="uncounted"}
