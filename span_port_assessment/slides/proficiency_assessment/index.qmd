@@ -6,10 +6,6 @@ institute: "Rutgers University"
 date: "2025-02-12 (Last update: `r Sys.Date()`)"
 format: rutgers-revealjs
 engine: knitr
-execute: 
-  out.width: "100%"
-  fig.asp: 0.5625
-  dpi: 300
 ---
 
 ```{r}
@@ -32,6 +28,7 @@ library("ggflowchart")
 #| echo: false
 #| out-width: "100%"
 #| fig-asp: 0.55
+#| dpi: 300
 
 dat <- tribble(
   ~"from", ~"to", 
