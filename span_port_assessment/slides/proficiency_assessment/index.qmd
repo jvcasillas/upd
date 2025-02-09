@@ -1,0 +1,123 @@
+---
+title: "Department of Spanish and Portuguese"
+subtitle: "Deptarment Meeting | Proficiency assessment"
+author: "Joseph V. Casillas"
+institute: "Rutgers University"
+date: "2025-02-12 (Last update: `r Sys.Date()`)"
+format: rutgers-revealjs
+engine: knitr
+execute: 
+  out.width: "100%"
+  fig.asp: 0.5625
+  dpi: 300
+---
+
+```{r}
+#| label: setup
+#| include: false
+library("tidyverse")
+library("ggflowchart")
+```
+
+## Key questions: {.center}
+
+1. Do we want an entry-exit test?
+2. Do we want it internal or external?
+3. Does it need to be free?
+
+---
+
+```{r}
+#| label: prep-data
+#| echo: false
+#| out-width: "100%"
+#| fig-asp: 0.55
+
+dat <- tribble(
+  ~"from", ~"to", 
+  "Do we want\nan entry-exit\ntest?", "No", 
+  "Do we want\nan entry-exit\ntest?", "Yes", 
+  "No", "Done.", 
+  "Yes", "Internal", 
+  "Yes", "External", 
+  "Internal", "LexTALE", 
+  "Internal", "Custom", 
+  "External", "Free", 
+  "External", "Paid", 
+  "Free", "Dialang", 
+  "Paid", "STAMP", 
+  "Paid", "Versant"
+)
+
+dat_nodes <- tibble(name = unique(c(dat$from, dat$to))) |> 
+  mutate(
+    label = gsub("\\d+$", "", name), 
+    is_test = if_else(
+        label %in% c(
+          "LexTALE", "Custom", "Dialang", "STAMP", "Versant"
+        ), 
+        true = "test", false = "option"
+      ), 
+    x_nudge = if_else(
+      condition = label == "Do we want\nan entry-exit\ntest?", 
+      true = 0.6, 
+      false = 0.4
+    ),
+    y_nudge = if_else(
+      condition = label == "Do we want\nan entry-exit\ntest?", 
+      true = 0.5, 
+      false = 0.2
+    ),
+  )
+
+ggflowchart(
+    data = dat, 
+    node_data = dat_nodes, 
+    fill = is_test, 
+    text_color = is_test, 
+    arrow_color = "grey20"
+  ) + 
+  scale_color_manual(
+    guide = "none",
+    values = c("black", "#cc0033")
+  ) + 
+  scale_fill_manual(
+    guide = "none",
+    values = c("grey80", "grey40")
+  ) + 
+  #labs(caption = "\nAdditional considerations:\n
+  #  1. Optional or mandatory?\n
+  #  2. For credit?"
+  #) + 
+  theme(plot.caption = element_text(
+    size = 14, 
+    hjust = 0,
+    lineheight = 0.55,
+    family = "serif"
+  ))
+```
+
+::: {.fragment .absolute bottom=0 style="font-size: 0.7em;"}
+Additional considerations:  
+1. Optional or mandatory?  
+2. For credit?
+:::
+
+---
+
+## Additional considerations: {.center}
+
+1. Optional or mandatory?
+2. For credit?
+
+---
+
+## {.center}
+
+::: {.columns}
+::: {.column width="25%"}
+:::
+
+::: {.column width="50%"}
+{{< qrcode https://docs.google.com/document/d/1DjokL1sg9qhIBDc6rAjVw5nf1PbrYmfVGWke5HcSYDo/edit?usp=sharing id width=400 height=400 colorDark='#cc0033' >}}
+:::
