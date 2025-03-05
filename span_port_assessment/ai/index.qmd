@@ -1,0 +1,108 @@
+---
+format: html
+---
+
+```{r}
+#| label: setup
+#| include: false
+library("tidyverse")
+library("here")
+library("janitor")
+library("brms")
+library("ggdist")
+```
+
+```{r}
+#| label: load-tidy
+#| echo: false
+
+temp <- read_csv(here("data", "spanport_ai_March 5, 2025_08.35.csv")) |>
+  clean_names()
+
+colnames <- slice(temp, 1) |> 
+  pivot_longer(everything())
+
+class_names <- c()
+
+ai_training <- c()
+
+ai_types <- c()
+
+ai_in_what_class <- c()
+
+ai_goals <- c()
+
+ai_how_used <- c()
+
+
+
+dat <- temp |> 
+  slice(-(1:2)) |> 
+  select(
+    response_id,
+    start_date, 
+    progress, 
+    dur = duration_in_seconds, 
+    class = q1, 
+    class_2 = q20, 
+    class_3 = q21, 
+    ai_training = q2, 
+    ai_training_info = q3, 
+    ai_this_semester = q4, 
+    ai_types = q5, 
+    ai_specific = q6, 
+    ai_in_what_class = q17, 
+    ai_uses_in_class = q18, 
+    ai_goals = q7, 
+    ai_goals_info = q8, 
+    ai_how_used = q9, 
+    ai_how_info = q10, 
+    ai_how_useful = q11_2, 
+    ai_useful_info = q12, 
+    ai_how_do_you_want_to_use = q13, 
+    ai_dept_policy = q14
+  ) |> 
+  filter(response_id != "R_1o3OAxMPVdythsJ") |> 
+  mutate(
+    ai_how_useful = (as.numeric(ai_how_useful) / 100) - 0.001
+  )
+
+glimpse(dat)
+```
+
+
+```{r}
+#| label: fig-ai-usefulness
+#| echo: false
+
+mod <- brm(
+  formula = ai_how_useful ~ 1, 
+  data = dat |> filter(!is.na(ai_how_useful)), 
+  family = Beta(), 
+  file = here("mods", "2025_ai_useful")
+)
+
+as_tibble(mod) |> 
+  transmute(intercept = plogis(b_Intercept)) |> 
+  ggplot() + 
+  aes(x = intercept, y = 0) + 
+  stat_halfeye(slab_fill = "#cc0033", pch = 21, point_fill = "white") + 
+  geom_jitter(
+    data = dat |> filter(!is.na(ai_how_useful)), 
+    aes(x = ai_how_useful, y = -0.05), 
+    pch = 21, color = "black", fill = "grey50", size = 4, alpha = 0.35, 
+    height = 0.01, width = 0
+  ) + 
+  coord_cartesian(xlim = c(0, 1)) + 
+  scale_x_continuous(
+    breaks = seq(0, 1, 0.25), 
+    labels = c("0.00\nNot useful", "0.25", "0.50", "0.75", "1.00\nVery useful")
+  ) + 
+  labs(x = NULL, y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 13) + 
+  theme(
+    axis.text.y = element_blank(), 
+    axis.ticks.y = element_blank()
+  )
+```
+
