@@ -1,0 +1,852 @@
+---
+title: "Department of Spanish and Portuguese"
+subtitle: "Deptarment Meeting | AI survey"
+author: "Joseph V. Casillas"
+institute: "Rutgers University"
+date: "2025-03-10 (Last update: `r Sys.Date()`)"
+format: rutgers-revealjs
+engine: knitr
+execute: 
+  fig-asp: 0.56
+  out-width: "100%"
+  fig-dpi: 300
+  warning: false
+  message: false
+  cache: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library("tidyverse")
+library("here")
+library("janitor")
+library("brms")
+library("ggdist")
+library("lubridate")
+library("ggimage")
+library("glue")
+library("emojifont")
+```
+
+```{r}
+#| label: load-tidy
+#| echo: false
+
+temp <- read_csv(here("data", "spanport_ai_March 5, 2025_08.35.csv")) |>
+  clean_names()
+
+colnames <- slice(temp, 1) |> 
+  pivot_longer(everything())
+
+class_names <- tribble(
+  ~"class", ~"label", 
+  "1",  "span101", 
+  "2",  "span102", 
+  "3",  "span121", 
+  "4",  "span131", 
+  "5",  "span132", 
+  "6",  "span160", 
+  "7",  "span201", 
+  "8",  "span202", 
+  "9",  "span203", 
+  "10",  "span204", 
+  "11",  "span205", 
+  "12",  "span206", 
+  "13",  "span215", 
+  "14",  "span225", 
+  "15",  "span250", 
+  "16",  "span261", 
+  "17",  "span313", 
+  "18",  "span325", 
+  "19",  "span326", 
+  "20",  "span331", 
+  "21",  "span332", 
+  "22",  "span333", 
+  "23",  "span334", 
+  "24",  "span335", 
+  "25",  "span336", 
+  "26",  "span342", 
+  "27",  "span346", 
+  "28",  "span348", 
+  "29",  "span353", 
+  "30",  "span360", 
+  "31",  "span362", 
+  "32",  "span363", 
+  "33",  "span364", 
+  "34",  "span366", 
+  "35",  "span367", 
+  "36",  "span368", 
+  "37",  "span389", 
+  "38",  "span390", 
+  "39",  "span402", 
+  "40",  "span403", 
+  "41",  "span404", 
+  "42",  "span405", 
+  "43",  "span406", 
+  "44",  "span419", 
+  "45",  "span450", 
+  "46",  "span462", 
+  "47",  "span471", 
+  "48",  "span477", 
+  "49",  "span479", 
+  "50",  "span488", 
+  "51",  "span489", 
+  "52",  "span490", 
+  "53",  "span491", 
+  "54",  "span492", 
+  "55",  "span491", 
+  "56",  "span491", 
+  "57",  "span597", 
+  "58",  "span493", 
+  "59",  "span494", 
+  "60",  "span499", 
+  "61",  "span500", 
+  "62",  "graduate", 
+  "63",  "port101", 
+  "64",  "port102", 
+  "65",  "port130", 
+  "66",  "port135", 
+  "67",  "port160", 
+  "68",  "port201", 
+  "69",  "port203", 
+  "70",  "port242", 
+  "71",  "port493", 
+  "72",  "port494", 
+  "73",  "port497", 
+  "74",  "port498", 
+)
+
+ai_types <- tribble(
+  ~"val", ~"label", 
+  1, "Electronic dictionaries",
+  2, "Machine Translation Tools",
+  3, "Chatbox - text (e.g., ChatGPT, copilot)",
+  4, "Chatbox - spoken",
+  5, "Language Learning Apps",
+  6, "Social Media Apps",
+  7, "Grammar Checking Tools (e.g., grammerly)",
+  8, "Other",
+)
+
+ai_in_what_class <- tribble(
+  ~"val", ~"label", 
+  1, "100-level language classes", 
+  2, "200-level language and culture classes", 
+  3, "Linguistics classes", 
+  4, "Literature classes", 
+)
+
+ai_goals <- tribble(
+  ~"val", ~"label", 
+  1, "Learn new vocabulary",
+  2, "Learn new grammar",
+  3, "Learn about a specific topic",
+  4, "Practice conversation",
+  5, "Help with reading difficult texts",
+  6, "Create study materials",
+  7, "Plan your learning",
+  8, "To get answers when I’m not sure",
+  9, "Other",
+)
+
+ai_how_used <- tribble(
+  ~"val", ~"label", 
+  1, "Look up words or expressions", 
+  2, "Correct grammar", 
+  3, "Ask questions about content", 
+  4, "Ask questions about grammar", 
+  5, "Learn about a specific content", 
+  6, "Learn new words or expressions", 
+  7, "Engage in a conversation in Spanish", 
+  8, "Summarize a text", 
+  9, "Translate a text", 
+  10, "To complete an assignment when I didn’t have the time or resources", 
+  11, "Other", 
+)
+
+dat <- temp |> 
+  slice(-(1:2)) |> 
+  select(
+    response_id,
+    start_date, 
+    progress, 
+    dur = duration_in_seconds, 
+    class = q1, 
+    class_2 = q20, 
+    class_3 = q21, 
+    ai_training = q2, 
+    ai_training_info = q3, 
+    ai_this_semester = q4, 
+    ai_types = q5, 
+    ai_specific = q6, 
+    ai_in_what_class = q17, 
+    ai_uses_in_class = q18, 
+    ai_goals = q7, 
+    ai_goals_info = q8, 
+    ai_how_used = q9, 
+    ai_how_info = q10, 
+    ai_how_useful = q11_2, 
+    ai_useful_info = q12, 
+    ai_how_do_you_want_to_use = q13, 
+    ai_dept_policy = q14
+  ) |> 
+  filter(response_id != "R_1o3OAxMPVdythsJ") |> 
+  left_join(class_names, by = "class") |> 
+  mutate(
+    class = label, 
+    class_2 = if_else(class_2 %in% class_names$class, label, NA), 
+    class_3 = if_else(class_3 %in% class_names$class, label, NA), 
+    ai_training = if_else(ai_training == "1", 1, 0), 
+    ai_this_semester = if_else(ai_this_semester == "1", 0, 1), 
+    ai_how_useful = (as.numeric(ai_how_useful) / 100) - 0.001, 
+  ) |> 
+  select(-label)
+```
+
+
+## Descriptives
+
+```{r}
+#| label: descriptives
+n_participants <- nrow(dat)
+total_enrollment <- 701
+n_participants_prop <- n_participants / total_enrollment
+
+avg_time <- dat |> 
+  transmute(dur = as.numeric(dur)) |> 
+  summarize(avg = mean(dur)) |>
+  transmute(time = seconds_to_period(avg)) |> 
+  pull() |> 
+  round(digits = 1)
+
+n_courses <- c(dat$class, dat$class_2, dat$class_3) |>
+  na.omit() |> 
+  unique() |> 
+  length()
+```
+
+::: {.incremental}
+- `r n_participants` participants 🧑🏽‍🎓
+- `r round(n_participants_prop * 100, digits = 2)`% of total enrollment
+:::
+
+---
+
+```{r}
+#| label: fg-total-participation
+#| fig-asp: 0.6
+waffle_enrollment <- expand.grid(x = 1:30, y = 30:1) %>% 
+  mutate(
+    is_rep = c(rep("no", n_participants), rep("yes", 900 - n_participants)), 
+    n = row_number(), 
+    student = if_else(is_rep == "no", 
+      here("slides", "ai", "index_files", "img", "student.png"), 
+      here("slides", "ai", "index_files", "img", "student_grey.png")
+    )
+  )
+
+waffle_enrollment |> 
+  filter(n <= total_enrollment) |> 
+  ggplot() + 
+  aes(x, y, image = student) + 
+  geom_image(size = 0.035) + 
+  theme_void()
+```
+
+---
+
+## Descriptives
+
+- `r n_participants` participants 🧑🏽‍🎓
+- `r round(n_participants_prop * 100, digits = 2)`% of total enrollment (`r total_enrollment` UG students)
+- Enrolled in `r n_courses` distinct courses
+- Completed survey in appox. `r avg_time` minutes
+
+---
+
+## {.center}
+
+```{r}
+#| label: fg-participation
+# Create top and bottom xlabs
+part_labs <- tibble(
+  x_bot = seq(0, 30, 5), 
+  x_top = x_bot / n_participants
+)
+
+bind_rows(
+    dat |> 
+    select(class),
+    dat |> 
+    select(class = class_2), 
+    dat |> 
+    select(class = class_3)
+  ) |> 
+  group_by(class) |> 
+  count() |> 
+  ungroup() |> 
+  na.omit() |> 
+  mutate(
+    prop = n / n_participants, 
+    class = fct_reorder(class, prop, max)
+  ) |> 
+  ggplot() + 
+  aes(x = n, y = class) + 
+  geom_segment(
+    aes(x = 0, xend = n), 
+    linewidth = 3, color = "grey40"
+  ) + 
+  geom_point(size = 5, color = "#cc0033") + 
+  scale_x_continuous(
+    name = "N", 
+    breaks = part_labs$x_bot, 
+    sec.axis = sec_axis(name = "Proportion", ~ . / n_participants)
+  ) + 
+  labs(y = NULL) + 
+  coord_cartesian(xlim = c(0, 20)) + 
+  ds4ling::ds4ling_bw_theme(base_size = 16) + 
+  NULL
+```
+
+---
+
+## Have you received any training regarding the use of AI or other technologies for language learning? {.center}
+
+---
+
+## 
+
+::: {.columns}
+::: {.column}
+
+<br>
+
+```{r}
+#| label: fg-ai-training
+#| fig-asp: 1.0
+#| fig-height: 4
+#| fig-width: 4
+
+n_training <- sum(dat$ai_training, na.rm = T)
+perc_training <- round((n_training / n_participants) * 100)
+
+waffle_ai_training <- expand.grid(x = 1:10, y = 10:1) %>% 
+  mutate(
+    is_rep = c(rep("no", n_training), rep("yes", 100 - n_training)), 
+    n = row_number(), 
+    student = if_else(is_rep == "no", 
+      here("slides", "ai", "index_files", "img", "student.png"), 
+      here("slides", "ai", "index_files", "img", "student_grey.png")
+    )
+  )
+
+waffle_ai_training |> 
+  filter(n <= n_participants) |> 
+  ggplot() + 
+  aes(x, y, image = student) + 
+  geom_image(size = 0.1) + 
+  theme_void()
+```
+
+:::
+
+::: {.column}
+
+<br><br><br>
+
+<center>
+[`r n_training` / `r n_participants`]{.emph .p-font style="font-size: 1.5em;"}  
+(approx. `r perc_training`%)  
+had [prior training]{.p-font style="font-size: 1.6em; color: #666666;"}  
+with AI
+</center>
+
+:::
+:::
+
+---
+
+## {.center}
+
+```{r}
+#| label: print-ai-training
+#| results: "asis"
+dat |> 
+  filter(ai_training == 1) |> 
+  mutate(
+    ai_training_info = str_remove(ai_training_info, "\\(not on list\\) "), 
+    print = glue('- "{ai_training_info}"')
+  ) |> 
+  pull(print)
+```
+
+---
+
+## Have you used any technologies to do your assignments this semester? {.center}
+
+---
+
+## 
+
+<br>
+
+::: {.columns}
+::: {.column}
+
+```{r}
+#| label: fg-ai-use
+#| fig-asp: 1.0
+#| fig-height: 4
+#| fig-width: 4
+
+n_use <- sum(dat$ai_this_semester, na.rm = T)
+perc_use <- round((n_use / n_participants) * 100)
+
+waffle_ai_use <- expand.grid(x = 1:10, y = 10:1) %>% 
+  mutate(
+    is_rep = c(rep("no", n_use), rep("yes", 100 - n_use)), 
+    n = row_number(), 
+    student = if_else(is_rep == "no", 
+      here("slides", "ai", "index_files", "img", "student.png"), 
+      here("slides", "ai", "index_files", "img", "student_grey.png")
+    )
+  )
+
+waffle_ai_use |> 
+  filter(n <= n_participants) |> 
+  ggplot() + 
+  aes(x, y, image = student) + 
+  geom_image(size = 0.1) + 
+  theme_void()
+```
+:::
+
+::: {.column}
+
+<br><br>
+
+<center>
+[`r n_use` / `r n_participants`]{.emph .p-font style="font-size: 1.5em;"}  
+(approx. `r perc_use`%)  
+used [technologies]{.p-font style="font-size: 1.6em; color: #666666;"}  
+on an assignment
+</center>
+
+:::
+:::
+
+---
+
+## What type of technologies have you used? {.center}
+
+---
+
+## {.center}
+
+```{r}
+#| label: fg-ai-types
+types_labs <- tibble(
+  x_bot = seq(0, 30, 5), 
+  x_top = x_bot / 75
+)
+
+dat |> 
+  select(ai_types) |> 
+  na.omit() |> 
+  transmute(to = str_split(ai_types, ",")) |> 
+  unnest(cols = "to") |> 
+  transmute(val = as.numeric(to)) |> 
+  left_join(ai_types, by = "val") |> 
+  group_by(label) |> 
+  count() |> 
+  ungroup() |> 
+  mutate(
+    possible = 8 * n_participants, 
+    responses = sum(n), 
+    prop_responses = n / responses, 
+    prop_total = n / possible, 
+    lab = case_when(
+      label == "Electronic dictionaries" ~ "Electronic\ndictionaries", 
+      label == "Machine Translation Tools" ~ "Machine translation\ntools", 
+      label == "Chatbox - text (e.g., ChatGPT, copilot)" ~ "Chatbox - text\n(e.g., ChatGPT, copilot)", 
+      label == "Chatbox - spoken" ~ "Chatbox - spoken", 
+      label == "Language Learning Apps" ~ "Language learning apps", 
+      label == "Social Media Apps" ~ "Social media apps", 
+      label == "Grammar Checking Tools (e.g., grammerly)" ~ "Grammar checking tools\n(e.g., grammerly)", 
+      label == "Other" ~ "Other"
+    ), 
+    lab = fct_reorder(lab, n, max) 
+  ) |> 
+  ggplot() + 
+  aes(x = n, y = lab) + 
+  geom_segment(
+    aes(x = 0, xend = n), 
+    linewidth = 3, color = "grey40"
+  ) + 
+  geom_point(size = 5, color = "#cc0033") + 
+  scale_x_continuous(
+    name = "N", 
+    breaks = types_labs$x_bot, 
+    sec.axis = sec_axis(name = "Proportion", ~ . / 75)
+  ) + 
+  coord_cartesian(xlim = c(0, 30)) + 
+  labs(y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 16) + 
+  theme(
+    axis.text.y = element_text(hjust = 0.5), 
+    axis.ticks.y = element_blank()
+  )
+```
+
+---
+
+## Specifically which technologies? {.center}
+
+---
+
+## {.center}
+
+```{r}
+#| label: fg-ai-specific-models
+
+keepers <- c(
+  "chatgpt", "spanishdict", "matecat", "linguee", "wordreference", 
+  "word", "reference", "spanish", "dictionary", "grammarly", "deepl", 
+  "google", "translate", "google translate", "chatgbt", "reverso", 
+  "gemini", "copilot"
+)
+
+dat |> 
+  select(ai_specific) |> 
+  na.omit() |> 
+  mutate(ai_specific = str_split(ai_specific, " ")) |> 
+  unnest(col = "ai_specific") |> 
+  mutate(
+    ai_specific = str_remove(ai_specific, "\\."), 
+    ai_specific = str_remove(ai_specific, ","), 
+    ai_specific = str_to_lower(ai_specific)
+  ) |> 
+  filter(ai_specific %in% keepers) |> 
+  mutate(
+    ai_specific = case_when(
+      ai_specific == "word" | ai_specific == "reference" ~ "wordreference", 
+      ai_specific == "spanish" | ai_specific == "dictionary" ~ "spanishdict", 
+      ai_specific == "chatgbt" ~ "chatgpt", 
+      ai_specific == "google" | ai_specific == "translate" ~ "google translate", 
+      TRUE ~ ai_specific
+    )
+  ) |> 
+  group_by(ai_specific) |> 
+  count() |> 
+  ungroup() |> 
+  transmute(
+    n, 
+    total_n = sum(n), 
+    prop = n / total_n, 
+    lab = fct_reorder(ai_specific, n, max)
+  ) |> 
+  ggplot() + 
+  aes(x = prop, y = lab) + 
+  geom_segment(
+    aes(x = 0, xend = prop), 
+    linewidth = 3, color = "grey40"
+  ) + 
+  geom_point(size = 5, color = "#cc0033") + 
+  coord_cartesian(xlim = c(0, 0.3)) + 
+  labs(x = "Proportion", y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 16) + 
+  NULL
+```
+
+---
+
+## In which classes did you use AI technologies? {.center}
+
+---
+
+## {.center}
+
+```{r}
+#| label: fg-ai-what-class
+
+dat |> 
+  select(ai_in_what_class) |> 
+  na.omit() |> 
+  transmute(val = as.numeric(ai_in_what_class)) |> 
+  left_join(ai_in_what_class, by = "val") |> 
+  group_by(label) |> 
+  count() |> 
+  ungroup() |> 
+  transmute(
+    lab = case_when(
+      label == "100-level language classes" ~ "100-level\nlanguage classes", 
+      label == "200-level language and culture classes" ~ "200-level\nlanguage/culture\nclasses", 
+      label == "Linguistics classes" ~ "Linguistics\nclasses", 
+      label == "Literature classes" ~ "Literature\nclasses"
+    ), 
+    n, 
+    n_total = sum(n), 
+    prop = n / n_total, 
+    lab = fct_reorder(lab, prop, max)
+  ) |> 
+  ggplot() + 
+  aes(x = prop, y = lab) + 
+  geom_segment(
+    aes(x = 0, xend = prop), 
+    linewidth = 3, color = "grey40"
+  ) + 
+  geom_point(size = 5, color = "#cc0033") + 
+  coord_cartesian(xlim = c(0, 0.5)) + 
+  labs(x = "Proportion", y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 16) + 
+  NULL
+```
+
+---
+
+## How did your use of AI technologies differ for each class? {.center}
+
+---
+
+## {.scrollable}
+
+```{r}
+#| label: ai-uses-in-class-quotes
+#| results: "asis"
+dat |> 
+  select(ai_uses_in_class) |> 
+  na.omit() |> 
+  filter(ai_uses_in_class != "N/A") |> 
+  mutate(ai_uses_in_class = glue("- {ai_uses_in_class}")) |> 
+  pull(ai_uses_in_class)
+```
+
+---
+
+## What were your goals in using these tools? {.center}
+
+---
+
+## {.center}
+
+```{r}
+#| label: fg-ai-goals
+
+dat |> 
+  select(ai_goals) |> 
+  na.omit() |> 
+  transmute(to = str_split(ai_goals, ",")) |> 
+  unnest(cols = "to") |> 
+  transmute(val = as.numeric(to)) |> 
+  left_join(ai_goals, by = "val") |> 
+  group_by(label) |> 
+  count() |> 
+  ungroup() |> 
+  transmute(
+    lab = case_when(
+      label == "Create study materials" ~ "Create study\nmaterials", 
+      label == "Help with reading difficult texts" ~ "Help reading\ndifficult texts", 
+      label == "Learn about a specific topic" ~ "Learn about\nspecific topic", 
+      label == "To get answers when I’m not sure" ~ "Get answers when\nI'm not sure", 
+      label == "Learn new vocabulary" ~ "Learn new\nvocabulary", 
+      label == "Learn new grammar" ~ "Learn new\ngrammar", 
+      label == "Practice conversation" ~ "Practice\nconversation", 
+      label == "Plan your learning" ~ "Plan my\nlearning", 
+      TRUE ~ label
+    ), 
+    n, 
+    total_n = sum(n), 
+    prop = n / total_n, 
+    lab = fct_reorder(lab, prop, max)
+  ) |> 
+  ggplot() + 
+  aes(x = prop, y = lab) + 
+  geom_segment(
+    aes(x = 0, xend = prop), 
+    linewidth = 3, color = "grey40"
+  ) + 
+  geom_point(size = 5, color = "#cc0033") + 
+  coord_cartesian(xlim = c(0, 0.3)) + 
+  labs(x = "Proportion", y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 16) 
+```
+
+---
+
+## {.scrollable}
+
+```{r}
+#| label: ai-goals-info-quotes
+#| results: "asis"
+dat |> 
+  select(ai_goals_info) |> 
+  na.omit() |> 
+  mutate(ai_goals_info = glue("- {ai_goals_info}")) |> 
+  pull(ai_goals_info)
+```
+
+---
+
+## How have you used these technologies? {.center}
+
+---
+
+## {.center}
+
+```{r}
+#| label: fg-ai-how-used
+
+dat |> 
+  select(ai_how_used) |> 
+  na.omit() |> 
+  transmute(to = str_split(ai_how_used, ",")) |> 
+  unnest(cols = "to") |> 
+  transmute(val = as.numeric(to)) |> 
+  left_join(ai_how_used, by = "val") |> 
+  group_by(label) |> 
+  count() |> 
+  ungroup() |> 
+  transmute(
+    lab = case_when(
+      label == "Ask questions about content" ~ "Ask questions\nabout content", 
+      label == "Ask questions about grammar" ~ "Ask questions\nabout grammar", 
+      label == "Engage in a conversation in Spanish" ~ "Engage in\nconversation", 
+      label == "Learn about a specific content" ~ "Learn about\nspecific content", 
+      label == "Learn new words or expressions" ~ "Learn new\nwords/expressions", 
+      label == "Look up words or expressions" ~ "Look up\nwords/expressions", 
+      label == "Summarize a text" ~ "Summarize\ntext", 
+      label == "To complete an assignment when I didn’t have the time or resources" ~ "Complete assignment\nwhen I didn't have\ntime/resources", 
+      label == "Translate a text" ~ "Translate\ntext", 
+      TRUE ~ label
+    ), 
+    n, 
+    total_n = sum(n), 
+    prop = n / total_n, 
+    lab = fct_reorder(lab, prop, max)
+  ) |> 
+  ggplot() + 
+  aes(x = prop, y = lab) + 
+  geom_segment(
+    aes(x = 0, xend = prop), 
+    linewidth = 3, color = "grey40"
+  ) + 
+  geom_point(size = 5, color = "#cc0033") + 
+  coord_cartesian(xlim = c(0, 0.3)) + 
+  labs(x = "Proportion", y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 16) 
+```
+
+---
+
+## {.scrollable}
+
+```{r}
+#| label: ai-how-info-quotes
+#| results: "asis"
+dat |> 
+  select(ai_how_info) |> 
+  na.omit() |> 
+  mutate(ai_how_info = glue("- {ai_how_info}")) |> 
+  pull(ai_how_info)
+```
+
+---
+
+## How useful or unuseful were these technologies? {.center}
+
+---
+
+## {.center}
+
+```{r}
+#| label: fg-ai-usefulness
+#| echo: false
+
+mod <- brm(
+  formula = ai_how_useful ~ 1, 
+  data = dat |> filter(!is.na(ai_how_useful)), 
+  family = Beta(), 
+  file = here("mods", "2025_ai_useful")
+)
+
+as_tibble(mod) |> 
+  transmute(intercept = plogis(b_Intercept)) |> 
+  ggplot() + 
+  aes(x = intercept, y = 0) + 
+  stat_halfeye(slab_fill = "#cc0033", pch = 21, point_fill = "white") + 
+  geom_jitter(
+    data = dat |> filter(!is.na(ai_how_useful)), 
+    aes(x = ai_how_useful, y = -0.05), 
+    pch = 21, color = "black", fill = "grey50", size = 4, alpha = 0.35, 
+    height = 0.01, width = 0
+  ) + 
+  coord_cartesian(xlim = c(0, 1)) + 
+  scale_x_continuous(
+    breaks = seq(0, 1, 0.25), 
+    labels = c("0.00\nNot useful", "0.25", "0.50", "0.75", "1.00\nVery useful")
+  ) + 
+  labs(x = NULL, y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 16) + 
+  theme(
+    axis.text.y = element_blank(), 
+    axis.ticks.y = element_blank()
+  )
+```
+
+---
+
+## {.scrollable}
+
+```{r}
+#| label: ai-useful-info-quotes
+#| results: "asis"
+
+not_useful <- c(
+  "same", "Very helpful", "n/a"
+)
+
+dat |> 
+  select(ai_useful_info) |> 
+  na.omit() |> 
+  filter(!(ai_useful_info %in% not_useful)) |>
+  mutate(ai_useful_info = glue("- {ai_useful_info}")) |> 
+  pull(ai_useful_info)
+```
+
+---
+
+## What would you like to be able to do with these tools?<br><br>What features are missing? {.center}
+
+---
+
+## {.scrollable}
+
+```{r}
+#| label: ai-how-do-you-want-to-use-quotes
+#| results: "asis"
+dat |> 
+  select(ai_how_do_you_want_to_use) |> 
+  na.omit() |> 
+  filter(ai_how_do_you_want_to_use != "N/a") |> 
+  mutate(ai_how_do_you_want_to_use = glue("- {ai_how_do_you_want_to_use}")) |> 
+  pull(ai_how_do_you_want_to_use)
+```
+
+---
+
+## Should the Department of Spanish and Portuguese have a strict policy regarding the use of AI?<br><br>What should this policy be? {.center}
+
+---
+
+## {.scrollable}
+
+```{r}
+#| label: ai-dept-policy-quotes
+#| results: "asis"
+dat |> 
+  select(ai_dept_policy) |> 
+  na.omit() |> 
+  mutate(ai_dept_policy = glue("- {ai_dept_policy}")) |> 
+  pull(ai_dept_policy)
+```
