@@ -297,7 +297,7 @@ bind_rows(
     aes(x = 0, xend = n), 
     linewidth = 3, color = "grey40"
   ) + 
-  geom_point(size = 5, color = "#cc0033") + 
+  geom_point(size = 5, pch = 21, color = "white", fill = "#cc0033") + 
   scale_x_continuous(
     name = "N", 
     breaks = part_labs$x_bot, 
@@ -484,7 +484,7 @@ dat |>
     aes(x = 0, xend = n), 
     linewidth = 3, color = "grey40"
   ) + 
-  geom_point(size = 5, color = "#cc0033") + 
+  geom_point(size = 5, pch = 21, color = "white", fill = "#cc0033") + 
   scale_x_continuous(
     name = "N", 
     breaks = types_labs$x_bot, 
@@ -552,7 +552,7 @@ dat |>
     aes(x = 0, xend = prop), 
     linewidth = 3, color = "grey40"
   ) + 
-  geom_point(size = 5, color = "#cc0033") + 
+  geom_point(size = 5, pch = 21, color = "white", fill = "#cc0033") + 
   coord_cartesian(xlim = c(0, 0.3)) + 
   labs(x = "Proportion", y = NULL) + 
   ds4ling::ds4ling_bw_theme(base_size = 16) + 
@@ -596,7 +596,7 @@ dat |>
     aes(x = 0, xend = prop), 
     linewidth = 3, color = "grey40"
   ) + 
-  geom_point(size = 5, color = "#cc0033") + 
+  geom_point(size = 5, pch = 21, color = "white", fill = "#cc0033") + 
   coord_cartesian(xlim = c(0, 0.5)) + 
   labs(x = "Proportion", y = NULL) + 
   ds4ling::ds4ling_bw_theme(base_size = 16) + 
@@ -666,7 +666,7 @@ dat |>
     aes(x = 0, xend = prop), 
     linewidth = 3, color = "grey40"
   ) + 
-  geom_point(size = 5, color = "#cc0033") + 
+  geom_point(size = 5, pch = 21, color = "white", fill = "#cc0033") + 
   coord_cartesian(xlim = c(0, 0.3)) + 
   labs(x = "Proportion", y = NULL) + 
   ds4ling::ds4ling_bw_theme(base_size = 16) 
@@ -731,7 +731,7 @@ dat |>
     aes(x = 0, xend = prop), 
     linewidth = 3, color = "grey40"
   ) + 
-  geom_point(size = 5, color = "#cc0033") + 
+  geom_point(size = 5, pch = 21, color = "white", fill = "#cc0033") + 
   coord_cartesian(xlim = c(0, 0.3)) + 
   labs(x = "Proportion", y = NULL) + 
   ds4ling::ds4ling_bw_theme(base_size = 16) 
