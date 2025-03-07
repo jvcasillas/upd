@@ -261,7 +261,7 @@ waffle_enrollment |>
 - `r n_participants` participants 🧑🏽‍🎓
 - `r round(n_participants_prop * 100, digits = 2)`% of total enrollment (`r total_enrollment` UG students)
 - Enrolled in `r n_courses` distinct courses
-- Completed survey in appox. `r avg_time` minutes
+- Completed survey in appox. `r round(avg_time)` minutes
 
 ---
 
