@@ -624,6 +624,30 @@ dat |>
 
 ---
 
+## {.smaller}
+
+::: {.columns}
+::: {.column}
+### Themes and Definitions:
+
+- **Efficiency**: Students used AI to complete tasks faster or reduce workload.
+- **Subject-Specific Use**: AI was mainly used for translation and writing-related courses.
+- **Idea Generation & Assistance**: Some students used AI to brainstorm or improve writing.
+- **Minimal or No Use**: A few students avoided AI due to concerns over accuracy or reliance.
+:::
+
+::: {.column}
+### Illustrative Quotes:
+
+- "It makes things faster. This applies to professors as well."
+- "I only used AI for translation courses, not for literature, linguistics, or writing."
+- "I like to use AI to help me with my writing, whether it’s editing or generating ideas for main points."
+- "I don’t really use too much AI because I don’t think it does things as well as a human."
+:::
+:::
+
+---
+
 ## What were your goals in using these tools? {.center}
 
 ---
@@ -685,6 +709,31 @@ dat |>
   mutate(ai_goals_info = glue("- {ai_goals_info}")) |> 
   pull(ai_goals_info)
 ```
+
+---
+
+## {.smaller}
+
+::: {.columns}
+::: {.column}
+### Themes and Definitions:
+
+- Efficiency & Productivity: Using AI to complete work quickly or assist with last-minute tasks.
+- Translation & Comprehension: AI used to translate words, confirm accuracy, and enhance understanding.
+- Grammar & Writing Assistance: AI helped with sentence construction, proofreading, and grammar checks.
+- Speaking & Practice: Some students used AI for conversational practice or understanding spoken language.
+:::
+
+::: {.column}
+### Illustrative Quotes:
+
+- "Get things done faster."
+- "My goal was to look up words and outline ideas for presentations."
+- "I use AI to proofread, correct mistakes, and improve my writing over time."
+- "I needed a partner to practice Portuguese."
+
+:::
+:::
 
 ---
 
@@ -753,6 +802,32 @@ dat |>
 
 ---
 
+## {.smaller}
+
+::: {.columns}
+::: {.column}
+### Themes and Definitions:
+
+- Checking & Learning: Students used AI to check answers, verify grammar, and understand new vocab.
+- Writing & Proofreading: AI assisted in structuring sentences and improving coherence.
+- Study Assistance: AI acted as an on-demand tutor, creating study guides and simplifying concepts.
+- Limited Use: Some students avoided AI due to concerns about reliance or inaccuracy.
+
+:::
+
+::: {.column}
+### Illustrative Quotes:
+
+- "I have used AI to learn unfamiliar vocab."
+- "I ask AI how to format what I need to do."
+- "I use AI to confirm verb conjugations and research small project details."
+- "Sometimes I ask ChatGPT to dumb down concepts for better understanding."
+
+:::
+:::
+
+---
+
 ## How useful or unuseful were these technologies? {.center}
 
 ---
@@ -816,6 +891,32 @@ dat |>
 
 ---
 
+## {.smaller}
+
+::: {.columns}
+::: {.column}
+### Themes and Definitions:
+
+- Highly Useful: AI was useful for translations, learning grammar, and checking work.
+- Needs Human Oversight: AI was effective but required verification for accuracy.
+- Enhances Learning: AI helped students recognize patterns and improve comprehension.
+- Limited Application: Some AI tools worked better for certain tasks than others.
+
+:::
+
+::: {.column}
+### Illustrative Quotes:
+
+- "Without AI, I would struggle more with assignments."
+- "AI helps confirm my conjugations and gives me confidence to learn."
+- "I liked that AI explained concepts in different ways."
+- "It is only useful if checked by a human, as it makes errors often."
+
+:::
+:::
+
+---
+
 ## What would you like to be able to do with these tools?<br><br>What features are missing? {.center}
 
 ---
@@ -835,6 +936,32 @@ dat |>
 
 ---
 
+## {.smaller}
+
+::: {.columns}
+::: {.column}
+### Themes and Definitions:
+
+- Speaking Practice: Many students wanted AI tools that engage in spoken conversation.
+- Grammar & Writing Assistance: Better recommendations for sentence structure and conjugation.
+- Flashcards & Study Materials: Automated study aids like flashcards and practice problems.
+- Improved Accuracy: AI tools should better recognize colloquial terms and refine responses.
+
+:::
+
+::: {.columns}
+#### Illustrative Quotes:
+
+- "I would like to engage in spoken conversations in Spanish to practice my skills."
+- "I wish AI helped me with sentence structure and verb conjugation better."
+- "It would be great if AI could generate flashcards without extra cost."
+- "Some colloquial terms are missing in AI responses."
+
+:::
+:::
+
+---
+
 ## Should the Department of Spanish and Portuguese have a strict policy regarding the use of AI?<br><br>What should this policy be? {.center}
 
 ---
@@ -850,3 +977,29 @@ dat |>
   mutate(ai_dept_policy = glue("- {ai_dept_policy}")) |> 
   pull(ai_dept_policy)
 ```
+
+---
+
+## {.smaller}
+
+::: {.columns}
+::: {.column}
+### Themes and Definitions:
+
+- Guided AI Use: AI should be allowed for proofreading and study assistance but not for full assignments.
+- Strict Limitations: Some students believe AI use should be minimized to encourage real learning.
+- Case-by-Case Approach: AI should be regulated depending on the course and assignment type.
+- No Restrictions: Others feel AI is a natural tool and should be freely available for learning.
+
+:::
+
+::: {.column}
+### Illustrative Quotes:
+
+- "AI should be used for proofreading, not for plagiarism."
+- "AI should not be allowed for assignments that require demonstrated learning."
+- "It should be used for checking work but not for full translations."
+- "Students should be free to use AI as they see fit."
+
+:::
+:::
