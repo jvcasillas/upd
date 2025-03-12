@@ -949,8 +949,8 @@ dat |>
 
 :::
 
-::: {.columns}
-#### Illustrative Quotes:
+::: {.column}
+### Illustrative Quotes:
 
 - "I would like to engage in spoken conversations in Spanish to practice my skills."
 - "I wish AI helped me with sentence structure and verb conjugation better."
@@ -1003,3 +1003,7 @@ dat |>
 
 :::
 :::
+
+---
+
+{{< qrcode www.jvcasillas.com/upd/span_port_assessment/slides/ai/index.html homepage width=400 height=400 colorDark='#cc0033' >}}
