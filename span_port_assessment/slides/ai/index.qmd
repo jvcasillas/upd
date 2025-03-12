@@ -718,10 +718,10 @@ dat |>
 ::: {.column}
 ### Themes and Definitions:
 
-- Efficiency & Productivity: Using AI to complete work quickly or assist with last-minute tasks.
-- Translation & Comprehension: AI used to translate words, confirm accuracy, and enhance understanding.
-- Grammar & Writing Assistance: AI helped with sentence construction, proofreading, and grammar checks.
-- Speaking & Practice: Some students used AI for conversational practice or understanding spoken language.
+- **Efficiency & Productivity**: Using AI to complete work quickly or assist with last-minute tasks.
+- **Translation & Comprehension**: AI used to translate words, confirm accuracy, and enhance understanding.
+- **Grammar & Writing Assistance**: AI helped with sentence construction, proofreading, and grammar checks.
+- **Speaking & Practice**: Some students used AI for conversational practice or understanding spoken language.
 :::
 
 ::: {.column}
@@ -808,10 +808,10 @@ dat |>
 ::: {.column}
 ### Themes and Definitions:
 
-- Checking & Learning: Students used AI to check answers, verify grammar, and understand new vocab.
-- Writing & Proofreading: AI assisted in structuring sentences and improving coherence.
-- Study Assistance: AI acted as an on-demand tutor, creating study guides and simplifying concepts.
-- Limited Use: Some students avoided AI due to concerns about reliance or inaccuracy.
+- **Checking & Learning**: Students used AI to check answers, verify grammar, and understand new vocab.
+- **Writing & Proofreading**: AI assisted in structuring sentences and improving coherence.
+- **Study Assistance**: AI acted as an on-demand tutor, creating study guides and simplifying concepts.
+- **Limited Use**: Some students avoided AI due to concerns about reliance or inaccuracy.
 
 :::
 
@@ -897,10 +897,10 @@ dat |>
 ::: {.column}
 ### Themes and Definitions:
 
-- Highly Useful: AI was useful for translations, learning grammar, and checking work.
-- Needs Human Oversight: AI was effective but required verification for accuracy.
-- Enhances Learning: AI helped students recognize patterns and improve comprehension.
-- Limited Application: Some AI tools worked better for certain tasks than others.
+- **Highly Useful**: AI was useful for translations, learning grammar, and checking work.
+- **Needs Human Oversight**: AI was effective but required verification for accuracy.
+- **Enhances Learning**: AI helped students recognize patterns and improve comprehension.
+- **Limited Application**: Some AI tools worked better for certain tasks than others.
 
 :::
 
@@ -942,10 +942,10 @@ dat |>
 ::: {.column}
 ### Themes and Definitions:
 
-- Speaking Practice: Many students wanted AI tools that engage in spoken conversation.
-- Grammar & Writing Assistance: Better recommendations for sentence structure and conjugation.
-- Flashcards & Study Materials: Automated study aids like flashcards and practice problems.
-- Improved Accuracy: AI tools should better recognize colloquial terms and refine responses.
+- **Speaking Practice**: Many students wanted AI tools that engage in spoken conversation.
+- **Grammar & Writing Assistance**: Better recommendations for sentence structure and conjugation.
+- **Flashcards & Study Materials**: Automated study aids like flashcards and practice problems.
+- **Improved Accuracy**: AI tools should better recognize colloquial terms and refine responses.
 
 :::
 
@@ -986,10 +986,10 @@ dat |>
 ::: {.column}
 ### Themes and Definitions:
 
-- Guided AI Use: AI should be allowed for proofreading and study assistance but not for full assignments.
-- Strict Limitations: Some students believe AI use should be minimized to encourage real learning.
-- Case-by-Case Approach: AI should be regulated depending on the course and assignment type.
-- No Restrictions: Others feel AI is a natural tool and should be freely available for learning.
+- **Guided AI Use**: AI should be allowed for proofreading and study assistance but not for full assignments.
+- **Strict Limitations**: Some students believe AI use should be minimized to encourage real learning.
+- **Case-by-Case Approach**: AI should be regulated depending on the course and assignment type.
+- **No Restrictions**: Others feel AI is a natural tool and should be freely available for learning.
 
 :::
 
