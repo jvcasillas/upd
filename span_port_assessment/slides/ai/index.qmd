@@ -3,7 +3,7 @@ title: "Department of Spanish and Portuguese"
 subtitle: "Deptarment Meeting | AI survey"
 author: "Joseph V. Casillas"
 institute: "Rutgers University"
-date: "2025-03-10 (Last update: `r Sys.Date()`)"
+date: "2025-03-12 (Last update: `r Sys.Date()`)"
 format: rutgers-revealjs
 engine: knitr
 execute: 
