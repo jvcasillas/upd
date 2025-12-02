@@ -15,11 +15,16 @@ library("tidyverse")
 library("ggflowchart")
 ```
 
-## Big picture - the problem
+## Big picture - the problem {.center}
 
 - Current major is out of date
 - It does not help us confront current enrollment issues
 - It does not reflect current practices at peer institutions nor at RU
+
+<!--
+it is credit intensive, relative to other languages
+we have bottlenecks in weird areas, interested students unable to take courses
+-->
 
 ---
 
@@ -31,37 +36,135 @@ library("ggflowchart")
 
 ---
 
-## Big picture - proposal
+## Big picture - proposal {.center}
 
 - Revamped learning goals
-- Revamped major that reflects learning goals and provides:
+- Revamped major that better reflects learning goals and provides:
   - a simpler path to majoring in Spanish
-  - more options that better serve students needs in current climate
+  - more options for students whose primary interest may not be in Spanish
 
 ---
 
 ## Additional considerations: {.center}
 
-- Need to emphasize Spanish for the professions
-- Need to promote and utilize current strengths (e.g., TI program, heritage speakers of Spanish and Portuguese)
-- Need to further support upper-level enrollments
+We believe we need to...
+
+- emphasize Spanish for the professions
+- promote and utilize current strengths (e.g., TI program, heritage speakers of Spanish and Portuguese)
+- further support upper-level enrollments
 
 ---
 
-## PROPOSAL
+## Proposal {.center}
 
-
----
-
-## Interdisciplinary major
-
----
-
-## Language intensive major
+- 2 major options 
+  - Interdisciplinary Spanish major
+  - Language intensive Spanish major
+- 33 credits each
+- New 271 translation course
+- 400-level capstone course
 
 ---
 
-## side by side {background-iframe="https://www.jvcasillas.com/upd/span_port_assessment/slides/new_major/33_credit_major.pdf" background-interactive=TRUE}
+## Interdisciplinary option {.smaller}
+
+- You want to learn Spanish and about Hispanic
+cultures but you have another major
+- You see yourself in a career that requires
+cultural awareness and intercultural skills
+- You are interested in contemporary issues that
+impact Latinos in the US and international
+relations with the Spanish-speaking worlds
+- You want to communicate in Spanish in health
+and business professions
+- You want to understand your family heritage
+- You want to add translation as a professional
+skill
+
+---
+
+## Interdisciplinary option {.smaller .scrollable}
+
+Consists of a minimum of 33 credits at the 200-
+level or above completed with a grade of C or
+better in each course.
+
+::: {.fragment}
+**I. 4-6 Required Spanish Language Courses depending on placement:**
+
+- 201/203
+- 202/204
+- 215 Intro Hispanic Literature
+- 261 Intro Study of Language
+- 271 Intro to translation (new)
+- 353 Spanish for community engagement
+:::
+
+::: {.fragment}
+**II. 5-7 Electives depending on placement; 3 courses must be at the 300-level or above**  
+Courses taught in Spanish, English, and
+Portuguese accepted.
+:::
+
+::: {.fragment}
+Up to 6 credits may be taken outside the
+department: seek approval from department
+Undergraduate Director for cognate courses from
+other departments such as Cognitive Science,
+Computer Science, English, Latino and Caribbean
+Studies, and Linguistics.
+:::
+
+---
+
+## Language intensive option
+
+- You want everything listed in the interdisciplinary option and more…
+- You want to speak Spanish fluently
+- You see yourself teaching Spanish as a second language
+- You have interest in a career in translation and interpreting
+- You are passionate about languages
+- You dream of living in a Spanish speaking country
+
+---
+
+## Language intensive option {.smaller .scrollable}
+
+Consists of a minimum of 33 credits at the 200-level or above completed with a grade of C or better in each course.
+
+::: {.fragment}
+**I. Lower Division Requirements:**
+
+- 200-level (6 credits)
+- 215 Intro Hispanic Literature
+- 261 Intro Study of Language
+- 271 Intro to translation (new)
+:::
+
+::: {.fragment}
+**II. Upper Division Requirements**
+300 Level or above (2 of the 3 areas, 6 credits)
+
+- Literature and culture (3 credits)
+- Linguistics (3 credits)
+- Translation (3 credits)
+:::
+
+::: {.fragment}
+**III. Capstone (400-level, 3 credits)**
+:::
+
+::: {.fragment}
+**IV. Electives (18 credits)**  
+Choose Spanish courses from 201/203 through the
+400-level  
+Up to 3 credits can be taken in Portuguese (810)  
+Up to 3 credits can be taken in 940 courses taught in English
+:::
+
+---
+
+## Side by side {background-iframe="https://www.jvcasillas.com/upd/span_port_assessment/slides/new_major/33_credit_major.pdf" background-interactive=TRUE}
 
 ---
 
