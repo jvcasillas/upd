@@ -1,0 +1,142 @@
+---
+title: "SpanPort"
+subtitle: "Program descriptives"
+format: pdf
+dpi: 350
+out-width: 100%
+---
+
+```{r}
+#| label: setup
+#| include: false
+library("tidyr")
+library("dplyr")
+library("ggplot2")
+library("forcats")
+library("stringr")
+library("here")
+library("readxl")
+library("janitor")
+```
+
+
+```{r}
+#| label: load-data
+#| echo: false
+mat_phd_certs <- read_xlsx(
+    path = here("program_descriptives", "major_minor_table.xlsx"), 
+    sheet = 1
+  ) |> 
+  clean_names() |> 
+  separate(semester, into = c("Semester", "Year"), sep = " ") |> 
+  filter(Semester != "Fall")
+
+major_minor_sp <- read_xlsx(
+    path = here("program_descriptives", "major_minor_table.xlsx"), 
+    sheet = 2
+  ) |> 
+  clean_names() |> 
+  separate(semester, into = c("Semester", "Year"), sep = " ") |> 
+  mutate(Year = glue::glue("20{Year}")) |> 
+  pivot_longer(
+    cols = span_major:heritage_certificate, 
+    names_to = "type", 
+    values_to = "n"
+  )
+
+major_minor_all <- read_xlsx(
+    path = here("program_descriptives", "major_minor_table.xlsx"), 
+    sheet = 3
+  ) |> 
+  pivot_longer(
+    cols = majors:minors, 
+    names_to = "type", 
+    values_to = "n"
+  )
+```
+
+
+
+```{r}
+#| label: major-minor
+#| echo: false
+#| fig-asp: 0.7
+major_minor_sp |> 
+  group_by(Year, type) |> 
+  summarize(n = sum(n), .groups = "drop") |> 
+  ggplot() + 
+  aes(x = Year, y = n, color = type, fill = type) + 
+  geom_line(aes(group = type), linewidth = 1) + 
+  geom_point(color = "white", pch = 21, size = 3) + 
+  scale_color_viridis_d(
+    name = NULL, end = 0.8, option = "A", 
+    labels = c("Heritage cert.", "Portuguese major", "Portuguese minor", 
+               "Spanish major", "Spanish minor", "Spanish intensive")
+  ) + 
+  scale_fill_viridis_d(
+    name = NULL, end = 0.9, option = "A", 
+    labels = c("Heritage cert.", "Portuguese major", "Portuguese minor", 
+               "Spanish major", "Spanish minor", "Spanish intensive")
+  ) + 
+  labs(title = "Majors/minors and certificates by year") + 
+  ds4ling::ds4ling_bw_theme() + 
+  theme(legend.position = "bottom")
+```
+
+
+```{r}
+#| label: dept-comp
+#| echo: false
+#| fig-asp: 0.8
+major_minor_all |> 
+  mutate(
+    dept = str_to_title(dept), 
+    dept = fct_reorder(dept, n, max), 
+    type = str_to_title(type)
+  ) |> 
+  ggplot() + 
+  aes(x = n, y = dept, shape = type, color = type, fill = type) + 
+  geom_segment(
+    aes(x = 0, xend = n, y = dept), 
+    position = position_dodge(0.75), linewidth = 1.5
+  ) + 
+  geom_point(position = position_dodge(0.75), pch = 21, color = "white", size = 3) + 
+  scale_color_viridis_d(name = NULL, end = 0.8) + 
+  scale_fill_viridis_d(name = NULL, end = 0.8) + 
+  labs(y = NULL, title = "Total major/minors by department (AY 25/26)") + 
+  ds4ling::ds4ling_bw_theme() + 
+  theme(legend.position = "inside", legend.justification = c(1, 0), 
+        legend.background = element_blank())
+```
+
+
+```{r}
+#| label: mat-phd-certs
+#| echo: false
+#| fig-asp: 0.7
+mat_phd_certs |> 
+  pivot_longer(
+    cols = t_i_certificates:ph_d, 
+    names_to = "type", 
+    values_to = "n"
+  ) |> 
+  group_by(Year, type) |> 
+  summarize(n = sum(n), .groups = "drop") |> 
+  ggplot() + 
+  aes(x = Year, y = n, color = type, fill = type) + 
+  geom_line(aes(group = type), linewidth = 1) + 
+  geom_point(pch = 21, color = "white", size = 3, show.legend = F) + 
+  scale_color_viridis_d(
+    name = NULL, 
+    labels = c("MA T/I", "MAT", "PhD", "T/I cert."), 
+    end = 0.85
+  ) + 
+  scale_fill_viridis_d(
+    name = NULL, 
+    labels = c("MA T/I", "MAT", "PhD", "T/I cert."), 
+    end = 0.85
+  ) + 
+  labs(title = "Program/Certificate enrollment by year") + 
+  ds4ling::ds4ling_bw_theme() + 
+  theme(legend.position = "bottom")
+```

@@ -1,0 +1,38 @@
+---
+title: "Department of Spanish and Portuguese"
+subtitle: "Deptarment Meeting | Major updates"
+author: "Joseph V. Casillas"
+institute: "Rutgers University"
+date: "2025-12-03 (Last update: `r Sys.Date()`)"
+format: rutgers-revealjs
+engine: knitr
+---
+
+```{r}
+#| label: setup
+#| include: false
+library("tidyverse")
+library("ggflowchart")
+```
+
+## Key questions: {.center}
+
+1. 
+
+---
+
+## Additional considerations: {.center}
+
+1. 
+
+---
+
+## {.center}
+
+::: {.columns}
+::: {.column width="25%"}
+:::
+
+::: {.column width="50%"}
+{{< qrcode https://docs.google.com/document/d/1DjokL1sg9qhIBDc6rAjVw5nf1PbrYmfVGWke5HcSYDo/edit?usp=sharing id width=400 height=400 colorDark='#cc0033' >}}
+:::
