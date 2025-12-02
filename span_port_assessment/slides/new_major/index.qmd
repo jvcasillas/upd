@@ -15,15 +15,61 @@ library("tidyverse")
 library("ggflowchart")
 ```
 
+## Big picture - the problem
+
+- Current major is out of date
+- It does not help us confront current enrollment issues
+- It does not reflect current practices at peer institutions nor at RU
+
+---
+
 ## Key questions: {.center}
 
-1. 
+1. How can we better serve students' needs
+1. How can we get more majors?
+1. Can we get more minors to become majors?
+
+---
+
+## Big picture - proposal
+
+- Revamped learning goals
+- Revamped major that reflects learning goals and provides:
+  - a simpler path to majoring in Spanish
+  - more options that better serve students needs in current climate
 
 ---
 
 ## Additional considerations: {.center}
 
-1. 
+- Need to emphasize Spanish for the professions
+- Need to promote and utilize current strengths (e.g., TI program, heritage speakers of Spanish and Portuguese)
+- Need to further support upper-level enrollments
+
+---
+
+## PROPOSAL
+
+
+---
+
+## Interdisciplinary major
+
+---
+
+## Language intensive major
+
+---
+
+## side by side {background-iframe="https://www.jvcasillas.com/upd/span_port_assessment/slides/new_major/33_credit_major.pdf" background-interactive=TRUE}
+
+---
+
+## Timeline and next steps
+
+---
+
+## Additional considerations
 
 ---
 
@@ -34,5 +80,7 @@ library("ggflowchart")
 :::
 
 ::: {.column width="50%"}
-{{< qrcode https://docs.google.com/document/d/1DjokL1sg9qhIBDc6rAjVw5nf1PbrYmfVGWke5HcSYDo/edit?usp=sharing id width=400 height=400 colorDark='#cc0033' >}}
+{{< qrcode https://forms.gle/DeMxrXfmKjz9FCYe7 id width=400 height=400 colorDark='#cc0033' >}}
 :::
+
+<!-- https://www.jvcasillas.com/upd/span_port_assessment/slides/new_major/33_credit_major.pdf -->
