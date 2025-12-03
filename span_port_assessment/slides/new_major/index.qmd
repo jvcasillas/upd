@@ -143,17 +143,15 @@ Studies, and Linguistics.
 Consists of a minimum of 33 credits at the 200-level or above completed with a grade of C or better in each course.
 
 ::: {.fragment}
-**I. Lower Division Requirements:**
+**I. Lower Division Requirements: <br>200-level (2 of the 3 areas, 6 credits)**
 
-- 200-level (6 credits)
 - 215 Intro Hispanic Literature
 - 261 Intro Study of Language
 - 271 Intro to translation (new)
 :::
 
 ::: {.fragment}
-**II. Upper Division Requirements**
-300 Level or above (2 of the 3 areas, 6 credits)
+**II. Upper Division Requirements: <br>300 Level or above (2 of the 3 areas, 6 credits)**
 
 - Literature and culture (3 credits)
 - Linguistics (3 credits)
@@ -180,7 +178,7 @@ Up to 3 credits can be taken in 940 courses taught in English
 
 ## 
 
-[Timeline and next steps]{.pfont .emph}
+[Timeline and next steps]{.emph .p-font style="font-size: 1.1em;"}
 
 ```{r}
 library("ggplot2")
@@ -207,31 +205,23 @@ time_line_df <- tribble(
   "Preparation phase",  "Meet w/ Office of the Dean",      "2025-11-20",   "2025-12-01",
   "Preparation phase",  "Department approval",             "2026-01-17",   "2026-01-25",
   "Preparation phase",  "Design 271",                      "2026-01-17",   "2026-03-01",
-  "Preparation phase",  "Submit proposal",                 "2026-04-01",   "2026-04-14", 
-  "Roll out phase",     "Run 271",                         "2026-09-01",   "2026-12-17", 
-  "Roll out phase",     "Open new major options",          "2027-09-01",   "2027-12-17" 
+  "Preparation phase",  "Submit proposals",                "2026-04-01",   "2026-04-14", 
+  "Roll out phase",     "Launch 271",                      "2026-09-01",   "2026-12-17", 
+  "Roll out phase",     "Launch new major options",        "2027-09-01",   "2027-12-17" 
 )
 
 # "Spots" can be used to mark when things actually occur on expected timeline
 # Not used for now ("X" implies something is finished)
 time_line_spots <- tribble(
-  ~"activity",          ~"spot_type",    ~"spot_date", 
-   "HLS",                "deadline",      "2021-04-28", 
-   "HLS",                "presentation",  "2021-10-07", 
-   "CASPSLaP",           "deadline",      "2021-10-30", 
-   "CASPSLaP",           "presentation",  "2022-02-19",
-   "V1",                 "submit",        "2022-02-03", 
-   "V2",                 "start",         "2022-10-01", 
-   "V2",                 "submit",        "2022-11-11", 
-   "V3",                 "start",         "2023-02-08", 
-   "V3",                 "submit",        "2023-02-20", 
-   "Typesetting",        "published",     "2023-08-23"
+  ~"activity",                 ~"spot_type",    ~"spot_date", 
+   "Launch 271",                "Fall 2026",     "2026-10-15",
+   "Launch new major options",  "Fall 2027",     "2027-10-15"
 )
 
 # Generate plot 
 p_project_timeline <- ganttrify(
   project = time_line_df,
-  #spots = time_line_spots,
+  spots = time_line_spots,
   by_date = TRUE,
   exact_date = TRUE,
   size_text_relative = 1,
@@ -244,7 +234,48 @@ p_project_timeline
 
 ---
 
-## Additional considerations
+## Additional considerations {.center}
+
+- "Ensure learning goals are lined up with curricular options"
+
+- Discuss with other departments regarding credits outside dept (interdisciplinary option)
+
+- Get feedback from current students about new options and current major
+
+---
+
+## Current major {background-color="black"}
+
+"400 level - 6 credits, but not many options offered at 400 level in reality"
+
+"Advanced grammar & comp: good in theory but when I took this class it just felt like a high school level grammar class - not as advanced. 
+I thought it was really easy & I took it as a freshman."
+
+"I think a grammar class would be good for the new intensive major - but idk if it makes sense now if you’re replacing it w/ the new translation course"
+
+---
+
+## Interdisciplinary major {background-color="black"}
+
+"New major is cool I think it will attract more people into Spanish classes"
+
+"Credit from other departments also cool - will attract more people to take the major. Why not add more depts? - psychology, international studies, etc."
+
+"Nice breakdown between required and electives (credit wise)"
+
+"Less required courses - depending on placement, good - will attract more people if they don’t want to start from scratch"
+
+---
+
+## Intensive major {background-color="black"}
+
+"Capstone is a cool addition - what would that entail?"
+
+"3 credits in 940 taught in English :( Makes sense to attract more students, but lowk goes against the intensive aspect. But since it’s only 3 credits makes sense"
+
+"Nice breakdown between lower, upper, and electives (credit wise)"
+
+"Credit from other departments also cool - will attract more people to take the major" 
 
 ---
 
