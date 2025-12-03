@@ -202,7 +202,7 @@ time_line_df <- tribble(
  ~"wp",                ~"activity",                       ~"start_date",  ~"end_date", 
   "Preparation phase",  "Investigate peer institutions",   "2025-10-01",   "2025-10-22",
   "Preparation phase",  "Design major options",            "2025-10-22",   "2025-11-16",
-  "Preparation phase",  "Meet w/ Office of the Dean",      "2025-11-20",   "2025-12-01",
+  "Preparation phase",  "Meet w/ OUE",      "2025-11-20",   "2025-12-01",
   "Preparation phase",  "Department approval",             "2026-01-17",   "2026-01-25",
   "Preparation phase",  "Design 271",                      "2026-01-17",   "2026-03-01",
   "Preparation phase",  "Submit proposals",                "2026-04-01",   "2026-04-14", 
