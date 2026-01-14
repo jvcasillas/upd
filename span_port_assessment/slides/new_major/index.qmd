@@ -143,7 +143,7 @@ Studies, and Linguistics.
 Consists of a minimum of 33 credits at the 200-level or above completed with a grade of C or better in each course.
 
 ::: {.fragment}
-**I. Lower Division Requirements: <br>200-level (2 of the 3 areas, 6 credits)**
+**I. Lower Division Requirements: <br>200-level (9 credits)**
 
 - 215 Intro Hispanic Literature
 - 261 Intro Study of Language
@@ -151,7 +151,7 @@ Consists of a minimum of 33 credits at the 200-level or above completed with a g
 :::
 
 ::: {.fragment}
-**II. Upper Division Requirements: <br>300 Level or above (2 of the 3 areas, 6 credits)**
+**II. Upper Division Requirements: <br>300 Level or above (6 credits)**
 
 - Literature and culture (3 credits)
 - Linguistics (3 credits)
@@ -163,7 +163,7 @@ Consists of a minimum of 33 credits at the 200-level or above completed with a g
 :::
 
 ::: {.fragment}
-**IV. Electives (18 credits)**  
+**IV. Electives (15 credits)**  
 Choose Spanish courses from 201/203 through the
 400-level  
 Up to 3 credits can be taken in Portuguese (810)  
@@ -202,7 +202,7 @@ time_line_df <- tribble(
  ~"wp",                ~"activity",                       ~"start_date",  ~"end_date", 
   "Preparation phase",  "Investigate peer institutions",   "2025-10-01",   "2025-10-22",
   "Preparation phase",  "Design major options",            "2025-10-22",   "2025-11-16",
-  "Preparation phase",  "Meet w/ OUE",      "2025-11-20",   "2025-12-01",
+  "Preparation phase",  "Meet w/ OUE",                     "2025-11-20",   "2025-12-01",
   "Preparation phase",  "Department approval",             "2026-01-17",   "2026-01-25",
   "Preparation phase",  "Design 271",                      "2026-01-17",   "2026-03-01",
   "Preparation phase",  "Submit proposals",                "2026-04-01",   "2026-04-14", 
