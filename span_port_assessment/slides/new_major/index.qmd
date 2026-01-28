@@ -68,39 +68,25 @@ We believe we need to...
 ## Proposal {.center}
 
 - 2 major options 
-  - Interdisciplinary Spanish major
-  - Language intensive Spanish major
+  - Spanish for Communities and Professions
+  - Language intensive
 - 33 credits each
 - New 271 translation course
-- 400-level capstone course
 
 ---
 
-## Interdisciplinary option {.smaller}
+## Spanish for Communities and Professions {.smaller}
 
-- You want to learn Spanish and about Hispanic
-cultures but you have another major
-- You see yourself in a career that requires
-cultural awareness and intercultural skills
-- You are interested in contemporary issues that
-impact Latinos in the US and international
-relations with the Spanish-speaking worlds
-- You want to communicate in Spanish in health
-and business professions
-- You want to understand your family heritage
-- You want to add translation as a professional
-skill
+- This option is designed for students who wish to combine Spanish with another field of study or professional interest. 
+- It is particularly appropriate for students interested in careers in health, education, environmental studies, public service, business, social sciences, international relations, or community-based work, as well as for students seeking to deepen their understanding of family or cultural heritage.
+- Students in this option develop strong language skills while exploring how Spanish functions in diverse social, cultural, and professional contexts.
 
 ---
 
-## Interdisciplinary option {.smaller .scrollable}
-
-Consists of a minimum of 33 credits at the 200-
-level or above completed with a grade of C or
-better in each course.
+## Spanish for Communities and Professions {.smaller .scrollable}
 
 ::: {.fragment}
-**I. 4-6 Required Spanish Language Courses depending on placement:**
+**A. Required Courses (4–6 courses [12-18 credits], depending on placement)**
 
 - 201/203
 - 202/204
@@ -111,68 +97,64 @@ better in each course.
 :::
 
 ::: {.fragment}
-**II. 5-7 Electives depending on placement; 3 courses must be at the 300-level or above**  
-Courses taught in Spanish, English, and
-Portuguese accepted.
+**B. Electives (5–7 [15-21 credits] courses, depending on placement)**  
+
+- At least **three courses must be at the 300 level or above**
+- Courses may be taught in Spanish, English, or Portuguese
 :::
 
 ::: {.fragment}
-Up to 6 credits may be taken outside the
-department: seek approval from department
-Undergraduate Director for cognate courses from
-other departments such as Cognitive Science,
-Computer Science, English, Latino and Caribbean
-Studies, and Linguistics.
+Up to **6 credits** may be taken outside the department with approval from the Undergraduate Director. Examples of relevant fields include (but are not limited to): Latino and Caribbean Studies, Geography, Political Science, Comparative Literature, Cognitive Science, Computer Science, Linguistics, Environmental Studies, Public Health, Business, and related areas. Students are not limited to this list.
 :::
 
 ---
 
-## Language intensive option
+## Language intensive
 
-- You want everything listed in the interdisciplinary option and more…
-- You want to speak Spanish fluently
-- You see yourself teaching Spanish as a second language
-- You have interest in a career in translation and interpreting
-- You are passionate about languages
-- You dream of living in a Spanish speaking country
+- The Language Intensive option is intended for students seeking advanced proficiency in Spanish and sustained engagement with literature, language, bilingualism/Second Language acquisition,
+and translation. 
+- This option is appropriate for students considering graduate study, teaching Spanish, translation and interpretation, or careers that require high levels of linguistic and cultural expertise
 
 ---
 
-## Language intensive option {.smaller .scrollable}
-
-Consists of a minimum of 33 credits at the 200-level or above completed with a grade of C or better in each course.
+## Language intensive {.smaller .scrollable}
 
 ::: {.fragment}
-**I. Lower Division Requirements: <br>200-level (9 credits)**
+**A. Required Lower-Division Courses (9 credits)**
 
 - 215 Intro Hispanic Literature
 - 261 Intro Study of Language
 - 271 Intro to translation (new)
+
+*Note*: Courses 201/203 and 202/204 may count toward the major as electives, allowing students to make progress toward the major early in their coursework.
 :::
 
 ::: {.fragment}
-**II. Upper Division Requirements: <br>300 Level or above (6 credits)**
+**B. Upper Division Requirements: (12 credits)**
 
-- Literature and culture (3 credits)
-- Linguistics (3 credits)
-- Translation (3 credits)
+- A minimum of **12 credits at the 300 level or above**
 :::
 
 ::: {.fragment}
-**III. Capstone (400-level, 3 credits)**
-:::
+**C. Electives (12 credits)**  
 
-::: {.fragment}
-**IV. Electives (15 credits)**  
-Choose Spanish courses from 201/203 through the
-400-level  
-Up to 3 credits can be taken in Portuguese (810)  
-Up to 3 credits can be taken in 940 courses taught in English
+- Spanish courses from the 200–400 level
+-  Up to 3 credits in Portuguese (810) may count toward the major
+-  Up to 3 credits in courses taught in English (940) may count toward the major
 :::
 
 ---
 
-## Side by side {background-iframe="https://www.jvcasillas.com/upd/span_port_assessment/slides/new_major/33_credit_major.pdf" background-interactive=TRUE}
+## Additional Notes for Both Options
+
+- Major credit begins at the 200 level.
+- Students are encouraged, but not required, to enroll in 400-level courses when available.
+- Course sequencing is flexible.
+- Students should meet regularly with a departmental advisor to plan a coherent and timely path through the major.
+
+---
+
+## {background-iframe="https://www.jvcasillas.com/upd/span_port_assessment/slides/new_major/33_credit_major.pdf" background-interactive=TRUE}
 
 ---
 
@@ -203,8 +185,8 @@ time_line_df <- tribble(
   "Preparation phase",  "Investigate peer institutions",   "2025-10-01",   "2025-10-22",
   "Preparation phase",  "Design major options",            "2025-10-22",   "2025-11-16",
   "Preparation phase",  "Meet w/ OUE",                     "2025-11-20",   "2025-12-01",
-  "Preparation phase",  "Department approval",             "2026-01-17",   "2026-01-25",
-  "Preparation phase",  "Design 271",                      "2026-01-17",   "2026-03-01",
+  "Preparation phase",  "Department approval",             "2026-01-25",   "2026-01-28",
+  "Preparation phase",  "Design 271",                      "2026-01-17",   "2026-02-12",
   "Preparation phase",  "Submit proposals",                "2026-04-01",   "2026-04-14", 
   "Roll out phase",     "Launch 271",                      "2026-09-01",   "2026-12-17", 
   "Roll out phase",     "Launch new major options",        "2027-09-01",   "2027-12-17" 
