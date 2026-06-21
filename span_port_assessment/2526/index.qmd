@@ -1,0 +1,645 @@
+---
+title: "Department of Spanish and Portuguese"
+subtitle: "2025-2026 assessment"
+author: "Prepared by Joseph V. Casillas"
+date: "2026-06-12"
+number-sections: true
+toc: true
+toc-depth: 2
+toc-title: Contents
+bibliography: bibliography.bib
+csl: apa.csl
+format: 
+  pdf: 
+    documentclass: article
+    fontfamily: libertinus
+    geometry:
+      - top=30mm
+      - left=20mm
+      - right=20mm
+      - heightrounded
+  html: default
+  docx: default
+---
+
+```{r}
+#| label: setup
+#| echo: false
+knitr::opts_chunk$set(
+  echo = TRUE, 
+  warning = FALSE, 
+  message = FALSE, 
+  fig.retina = 2, 
+  out.width = "100%"
+  )
+
+span_port_theme <- function(...) {
+  list(
+    theme_bw(base_family = "Palatino", base_size = 8), 
+    theme(
+      axis.title.y = element_text(size = rel(.9), hjust = 0.95),
+      axis.title.x = element_text(size = rel(.9), hjust = 0.95),
+      panel.grid.major = element_line(colour = 'grey90', linewidth = 0.15),
+      panel.grid.minor = element_line(colour = 'grey90', linewidth = 0.15))
+  )
+}
+
+# Round and format numbers to exactly N digits
+specify_decimal <- function(x, k) {
+  out <- trimws(format(round(x, k), nsmall = k))
+  return(out)
+}
+
+```
+
+```{r}
+#| label: load-libs
+#| echo: false
+library("tidyverse")
+library("here")
+library("janitor")
+library("brms")
+library("tidybayes")
+library("ggdist")
+library("emmeans")
+library("patchwork")
+library("glue")
+library("scholar")
+```
+
+```{r}
+#| label: load-tidy-data
+#| echo: false
+
+syllabi <- bind_rows(
+  read_csv(here("2526", "syllabi", "2025_fall.csv")), 
+  read_csv(here("2526", "syllabi", "2026_spring.csv"))
+)
+
+lt_all <- bind_rows(
+  read_csv(here("lextale_ru", "processed_data", "lt_all.csv")), 
+) |> 
+    mutate(
+    course = if_else(course == 362, 132, course), 
+    course = as.factor(course), 
+    session = str_to_title(session),
+    session = fct_relevel(session, "Pre"), 
+    modality = str_to_title(modality), 
+    modality = fct_relevel(modality, "In-Person"), 
+    lt_prop = lextale_avg / 100
+  ) |> 
+  filter(lt_prop %notin% c(0, 1), lextale_avg >= 10)
+
+# LexTALE info
+# Define ids for Kristin Lemhöfer and Fernando Cuetos
+id_kl <- "iEu7INIAAAAJ"
+id_fc <- "yN12ON8AAAAJ"
+
+# Get KL publications and filter for Lemhöfer & broersma (2012)
+# pull number of citations
+lextale_citations <- get_publications(id_kl) |> 
+  filter(cid == "7081282950987263577") |> 
+  pull(cites) |>
+  prettyNum(big.mark = ",")
+
+# Now do the same for LexTALE-ESP
+lextale_esp_citations <- get_publications(id_fc) |> 
+  filter(cid == "12545879072337610244") |> 
+  pull(cites) |>
+  prettyNum(big.mark = ",")
+
+# Enrollments
+enrollments <- read_csv(here("lextale_ru", "processed_data", "enrollments.csv"))
+
+# Tables
+source(here("lextale_ru", "scripts", "06_tables.R"))
+
+# Small data
+n_total_tests <- sum(participation$n)
+n_complete_cases <- rate_improvement[[3, 4]]
+n_enrolled_students <- sum(enrollments$enrollment)
+n_unique_students <- length(unique(lt_all$id))
+```
+
+```{r}
+#| label: load-models
+#| echo: false
+# Load model for plot
+mod_0 <- readRDS(here("lextale_ru", "models", "mod_0.rds"))
+mod_1 <- readRDS(here("lextale_ru", "models", "mod_1.rds"))
+mod_2 <- readRDS(here("lextale_ru", "models", "mod_2.rds"))
+mod_3 <- readRDS(here("lextale_ru", "models", "mod_3.rds"))
+mod_4 <- readRDS(here("lextale_ru", "models", "mod_4.rds"))
+```
+
+\vspace{1in}
+
+::: {.callout-note}
+At the beginning of each section a box like this will appear containing the prompt/question provided by SAS.
+:::
+
+{{< pagebreak >}}
+
+
+# Learning goals
+
+::: {.callout-note icon="false"}
+## Learning goals
+In this space, please list your program's learning goals and provide the url where they are posted on your website. 
+Optional: if you have updated or revised your learning goals in the past year, please note those changes here.
+:::
+
+Learning goals for the Department of Spanish and Portuguese can be found on our department webpage: 
+
+- Spanish: <https://span-port.rutgers.edu/learning-goals> 
+- Portuguese: <https://span-port.rutgers.edu/portuguese-learning-goals>
+
+### Shared learning goals
+
+Majors in all areas will be able to demonstrate proficiency in interpretive, interpersonal and presentational modes of communication and basic knowledge of Linguistics, Cultural Studies or Translation as disciplines.  
+
+The top 75% of Spanish or Portuguese majors will be able to carry out conversations in which they can describe, compare, contrast, in all tenses (present, past and future), with an appropriate breadth of vocabulary and register, and to be understood by a non-sympathetic listener; and to read and write documents written in academic, formal and/or literary registers of language.  
+
+Majors will be able to conduct research projects according to the methodologies of the humanities, social or cognitive sciences and demonstrate intercultural awareness and understanding of the Hispanic or Luso-Brazilian world.  
+
+Honors students (top 15%) will be able to complete independent research, write a thesis, and defend it before a faculty committee.
+
+### Spanish-specific learning goals
+
+- Spanish majors who choose electives in Linguistics will also be able to demonstrate familiarity with basic concepts of Linguistics, in particular with issues related to language contact and bilingualism and bilingual education, and be able to design and implement a research project. 
+- Spanish majors who choose electives in Translation/Interpreting will also be able to demonstrate proficiency at the levels required by pre-professional and professional training for employment in legal, medical, commercial translation and in other areas; and further study in law, medicine, editing/journalism, and business, as well as graduate studies in both linguistics and literature. 
+- Spanish majors who choose electives in Literature and Culture will also be able to demonstrate knowledge of current issues and perspectives in literary and cultural studies in Spanish and the basic body of works in Spanish literature and culture; critically analyze verbal and visual texts; demonstrate familiarity with a range of cultural works from different time periods and geographical regions within the Spanish-speaking world and with the historical  phenomena and socio-cultural issues that these works negotiate. 
+- The top 15% of majors will be prepared for acceptance to graduate programs in Spanish.
+- Minors in Spanish will be able to demonstrate a level of language proficiency that allows basic conversations on a variety of uncomplicated topics, with basic command of the language, and some spontaneous creative ability; and basic familiarity with the main cultural, literary and linguistic issues of the Hispanic or Luso-Brazilian world.
+
+### Portuguese-specific learning goals
+
+- Portuguese majors will also be able to demonstrate knowledge of current issues and perspectives in literary and cultural studies in Portuguese and the basic body of works in Luso-Brazilian literature and culture; critically analyze verbal and visual texts; demonstrate familiarity with a range of cultural works from different time periods and geographical regions within the Portuguese-speaking world and with the historical phenomena and socio-cultural issues that these works negotiate. 
+- The top 15% of majors will be prepared for acceptance to graduate programs in Portuguese.
+- Minors in Portuguese will be able to demonstrate a level of language proficiency that allows basic conversations on a variety of uncomplicated topics, with basic command of the language, and some spontaneous creative ability; and basic familiarity with the main cultural, literary and linguistic issues of the Hispanic or Luso-Brazilian world.
+
+\vspace{0.2in}
+
+::: {.callout-note icon="false"}
+## Are learning goals on syllabi? 
+
+How many department/program syllabi include appropriate learning goal statements? (Select one)
+
+**Overwhelming majority** | More than half | About half | Less than half
+:::
+
+```{r}
+#| label: syllabi-descriptives
+#| echo: false
+# Calculate dept and course goal averages
+lg_statements <- syllabi |> 
+  summarize(
+    perc_dept_goals = sum(includes_dept_goals) / nrow(syllabi), 
+    perc_course_goals = sum(includes_course_goals) / nrow(syllabi)
+  ) |> 
+  mutate(across(everything(), \(x) x * 100)) |> 
+  mutate(across(everything(), \(x) round(x, 2))) 
+```
+
+Of the `r nrow(syllabi)` syllabi scrutinized from the fall and spring semesters of the 2025-2026 academic year, `r lg_statements$perc_course_goals`% included appropriate learning goal statements and `r lg_statements$perc_dept_goals`%---the overwhelming majority---also included a direct link to the complete learning goals on the department website. 
+
+
+\vspace{0.2in}
+
+::: {.callout-note icon="false"}
+## Where are program learning goals achieved? 
+
+In this space, please indicate where in your program students achieve mastery of your learning goals: for each goal, identify which course, group of courses, or other curricular requirement most directly supports student mastery of that goal.
+:::
+
+Mastery of a novel or family language does not take place in a single course. 
+For our learners beginning without prior experience, the elementary (101, 102) courses are critical for initiating them in the basics of the present tense and developing skills for intercultural communication. 
+These courses plant the seeds that will eventually allow dedicated students to demonstrate proficiency in various modes of communication, carry out conversations with non-sympathetic listeners, and demonstrate intercultural awareness. 
+In addition, many students come to our program with prior experience, either via previous coursework or familial experience, and are placed accordingly. 
+Importantly, the type of multifaceted knowledge our students obtain is developed over the course of the major/minor, regardless of where a given student begins. 
+ 
+As mentioned above, our students are expected to read and write documents written in academic, formal and/or literary registers of the language. 
+These skills are developed from the early stages of the program and are given special attention in our 202, 203, and 204 courses (*Culture and Composition for Heritage Speakers*, *Spanish Conversation and Composition*, and *Culture and Composition*, respectively). 
+From there, students can take one of our gateway courses on literature, linguistics, or translation (more below) to begin developing academic writing skills in a specialized area, and also continue to 325/326 (*Advanced Grammar and Composition*, *Advanced Composition and Introduction to Translation Studies*). 
+From this point forward, most 300/400-level courses will also require substantial academic writing. 
+
+For students focusing on linguistics, cultural studies or translation, our gateway courses (215, 261, and 326, respectively) provide a solid foundation for each area.
+This foundation is solidified and expanded upon in subsequent 300/400-level courses in which students learn to conduct research projects following the methodologies of the humanities, social or cognitive sciences. 
+From this point forward, students are expected to continue developing as researchers in all of their specialized courses. 
+
+
+\vspace{0.2in}
+
+# Departmental assessment
+
+## Assessment topic
+
+::: {.callout-note icon="false"}
+## What question about student learning did your department investigate this year?
+
+In this space, please state the question about student learning that your department investigated this year.  
+
+Your question should be **useful**--answering it should help to inform your department's decisions about curriculum design, instructional practices, student advising, or other factors that impact student learning--and answering it should involve **directly examining student learning**.  
+
+The SAS Assessment Committee's first priority is ensuring that assessment provides departments with useful information. For guidelines and examples of useful assessment questions, please visit sasoue.rutgers.edu/program-assessment/guidelines or contact SAS Director of Teaching, Learning, and Assessment David Goldman at dgoldman@sas.rutgers.edu.
+:::
+
+The question about student learning addressed by the Department of Spanish and Portuguese this year is a follow-up from our 2023-2024 academic year assessment. 
+Specifically, our primary focus was on language learning outcomes across our basic language program (101, 102, 121, 131, 132). 
+In addition, we examined how outcomes may differ as a function of learning modality (i.e., online vs. in-person). 
+Like other departments, our courses were moved online as a consequence of the global pandemic. 
+Since then, we have continued offering online classes as a complement to our in-person classes. 
+A crucial question in language departments nationally revolves around the effectiveness of online teaching, particularly with regard to our aforementioned learning goals. 
+To this end, we are interested in understanding more about the effectiveness of our online course offerings and the extent to which they are comparable to their in-person counterparts. 
+As in 2023-2024, we decided to focus on the construct of language proficiency for our assessment. 
+Our initial investigation included 160 learners from our basic language program. 
+In revisiting the topic, we now expand our analysis to include `r n_unique_students` students. 
+We believe an assessment of this nature can provide useful information to both the department and SAS. 
+
+It is important to note that, while we all have an intuitive understanding of what proficiency is, it is rather difficult to operationalize and measure. 
+To wit, proficiency assessments typically involve formal language testing procedures and oral interviews. 
+Understandably, a thorough assessment of this nature is costly regarding both time and money. 
+An alternative method currently being used in some areas of linguistic research involves assessing learners on psycholinguistic tasks. 
+The benefits of using tasks of this type are (1) they correlate with traditional measures of proficiency, (2) they are inexpensive, and (3) they can be administered in a short amount of time. 
+To this end, we asked students in our basic language program to complete a lexical decision task (details below) during the first and last weeks of semester, beginning in the Spring of 2024. 
+We anticipate students will obtain higher scores on the task at the end of the semester, ostensibly due to gains in proficiency over the course of the semester. 
+Where possible, we compare modalities of the same course, that is, in-person vs. online, and, *a priori*, we have no expectations that there will be higher scores in one modality over the other. 
+That being said, in our initial 2024 analysis of 160 learners, we found marginally higher improvement in the online courses. 
+In what follows, we provide a detailed description of the task, the updated results, and possible implications for the department. 
+
+## Methods
+
+::: {.callout-note icon="false"}
+## What methods did you use to answer your question about student learning? 
+
+In this space, please provide a brief overview of the way your department gathered information about student learning to answer the question posed above.
+
+**Remember that it is important to directly examine student learning as part of your assessment efforts.** 
+Be sure to include a description of the student work that was examined and include any prompts, rubrics, or other instruments that you used.
+:::
+
+The Lexical Test for Advanced Learners of English [LexTALE, @lemhofer_broersma_2012] is a vocabulary test that measures English proficiency by assessing vocabulary size through a lexical decision task. 
+In the LexTALE, participants see 60 lexical items (40 words and 20 pseudowords) and indicate whether each item is an existing word in the English language or not by pressing a key. 
+The pseudowords used in the test are orthographically and phonologically legal constructions in English. 
+Participants are scored based on their accuracy accepting real words and correctly rejecting pseudowords. 
+Response times are not measured. 
+LexTALE scores range from 0 to 100.
+
+The Lexical Test for Advanced Learners of Spanish [LexTALE-ESP, @Izura_et_al_2014] employs a similar methodology and design as the LexTALE, but it measures vocabulary size in Spanish. 
+Participants see 90 lexical items (60 real words and 30 pseudowords) and indicate whether each item is a real word in Spanish. 
+Scores in the LexTALE-ESP also range from 0 to 100. 
+Completing the LexTALE/LexTALE-ESP takes approximately four minutes.
+Importantly, although the LexTALE was originally proposed as a test of lexical knowledge, many studies in SLA have used the LexTALE and LexTALE-ESP to operationalize language proficiency.
+At present, approximately `r lextale_citations` empirical studies have used the LexTALE and `r lextale_esp_citations` have used the Spanish version, LexTALE-ESP. Anybody interested in trying the task can do so [here](https://run.pavlovia.org/jvcasillas/lextale_ru).^[Note: please enter 'test' for all of the required information, e.g., RUID = 'test'.]
+
+The Undergraduate Director, Language Coordinator, and instructors in the basic language program have asked students to complete the LexTALE-ESP task during the first week of classes and during the penultimate week of classes every semester since the Spring of 2024. 
+Initially, instructors were provided flyers with QR codes and bitly links to the task, as well as an additional link available on the Canvas website of each course. 
+After the first semester of testing, the task has been distributed exclusively through canvas and included as part of the basic language program curriculum. 
+
+## Findings
+
+::: {.callout-note icon="false"}
+## Findings
+
+In this space, please summarize your findings and your interpretation of your findings.
+:::
+
+
+From Spring 2024 to Spring 2026 (5 semesters), `r sum(enrollments$enrollment)` students have enrolled in our basic language program. 
+Of them, `r n_unique_students` unique individuals completed at least one session of the LexTALE-ESP lexical decision task (`r round(n_unique_students/sum(enrollments$enrollment) * 100, 2)`% completion rate). 
+Over this period, we administered `r n_total_tests |> prettyNum(big.mark = ",")` sessions of the task out of a possible `r (n_enrolled_students * 2) |> prettyNum(big.mark = ",")` (`r n_enrolled_students` enrolled students $\times$ 2 sessions = `r (n_enrolled_students * 2) |> prettyNum(big.mark = ",")`). 
+Across all semesters participation was strong initially (n = `r particpation_session$n[1]`, `r round(particpation_session$prop[1] * 100, digits = 2)`%), but waned in the post-test phase (n = `r particpation_session$n[2]`, `r round(particpation_session$prop[2] * 100, digits = 2)`%). 
+We collected a total of `r n_complete_cases` complete cases, i.e., pre- and post-test sessions completed by the same individual (`r n_complete_cases` complete cases $/$ `r n_enrolled_students` enrolled students = `r round((n_complete_cases / n_enrolled_students) * 100, digits = 2)`%), though this number is inflated because many individuals completed the pre- and post-test multiple times in different courses. 
+For instance, a given student could complete the LexTALE-ESP in 102, 131, and 132, providing data on 6 iterations of the task, but their ID registers them as one unique participant. 
+All statistical analyses were conducted using data from students completing both phases of the task. 
+
+```{r}
+#| label: model-descriptives
+#| echo: false
+
+# Overall LT avg
+overall_avg <- mod_0 |> 
+  as_tibble() |> 
+  transmute(estimate = plogis(b_Intercept)) |> 
+  mean_hdi() |> 
+  transmute(across(estimate:.upper, \(x) x * 100)) |> 
+  transmute(across(everything(), \(x) specify_decimal(x, 2))) |> 
+  transmute(print = glue("{estimate}% [{.lower}, {.upper}]")) |> 
+  pull(print)
+
+# Overall pre vs post avgs
+prepost_avg <- mod_1 |> 
+  as_tibble() |> 
+  transmute(
+    pre = plogis(b_Intercept), 
+    post = plogis(b_Intercept + b_sessionPost)
+  ) |> 
+  pivot_longer(
+    cols = everything(), 
+    names_to = "session", 
+    values_to = "estimate"
+  ) |> 
+  group_by(session) |> 
+  mean_hdi() |> 
+  mutate(across(estimate:.upper, \(x) x * 100)) |> 
+  mutate(across(estimate:.upper, \(x) specify_decimal(x, 2))) |> 
+  transmute(session, print = glue("{estimate}% [{.lower}, {.upper}]"))
+
+# Model 2 posterior
+mod2_post <- emmeans::emmeans(mod_2, specs = ~ modality + session) |> 
+  gather_emmeans_draws() 
+
+# Modality x session averages
+modality_session_avgs <- mod2_post |> 
+  mean_hdi() |> 
+  mutate(across(.value:.upper, \(x) plogis(x))) |> 
+  mutate(across(.value:.upper, \(x) x * 100)) |> 
+  mutate(across(.value:.upper, \(x) specify_decimal(x, 2))) |> 
+  transmute(modality, session, print = glue("{.value}% [{.lower}, {.upper}]"))
+
+# Pre vs post diff by modality
+modality_avg_diff <- mod2_post |> 
+  select(modality, session, .draw, .value) |> 
+  pivot_wider(names_from = "session", values_from = .value) |> 
+  mutate(diff = plogis(Post) - plogis(Pre)) |> 
+  select(modality, diff) |> 
+  mean_hdi() |> 
+  mutate(across(diff:.upper, \(x) x * 100)) |> 
+  mutate(across(diff:.upper, \(x) specify_decimal(x, 2))) |> 
+  transmute(modality, print = glue("{diff}% [{.lower}, {.upper}]"))
+```
+
+The overall average score on the task marginalizing over session (pre, post), modality (in-person, online), and course (101, 102, 121, 131, 132) was approximately `r overall_avg` (See @fig-lt-all-session, panel A). 
+The average pre-test score was `r prepost_avg[[2, 2]]` and the average post-test score was `r prepost_avg[[1, 2]]`, thus students showed marginal improvement overall, approximately 4%, by the end of the semester (See @fig-lt-all-session, panels B and C). 
+
+```{r}
+#| label: fig-lt-all-session
+#| fig-asp: 0.6
+#| fig-dpi: 300
+#| out-width: "100%"
+#| echo: false
+#| fig-cap: "Posterior distributions of overall LexTALE-ESP scores (panel A), scores stratified by session (panel B), and average post-test vs. pre-test differences (panel C). Each plot represents the posterior mean along with the 95% and 66% highest density credible interval."
+
+# Intercept only model
+mod0_p1 <- as_tibble(mod_0) |> 
+  transmute(intercept = plogis(b_Intercept)) |> 
+  ggplot() + 
+  aes(x = intercept) + 
+  stat_halfeye(slab_fill = "#cc0033", pch = 21, point_fill = "white") + 
+  scale_x_continuous(labels = scales::percent_format()) + 
+  labs(y = NULL, x = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 8) + 
+  theme(
+    axis.ticks.y = element_blank(), 
+    axis.text.y = element_blank(), 
+    plot.tag.position  = c(0.05, .9)
+  )
+
+# Overall session effect
+mod1_post <- as_tibble(mod_1) |> 
+  transmute(
+    Pre = plogis(b_Intercept), 
+    Post = plogis(b_Intercept + b_sessionPost), 
+    diff = Post - Pre,
+  ) |> 
+  pivot_longer(everything(), names_to = "session", values_to = "estimate")
+
+mod1_p1 <- mod1_post |> 
+  filter(session != "diff") |> 
+  ggplot() + 
+  aes(x = estimate, y = session, fill = session) + 
+  stat_halfeye(pch = 21, point_fill = "white", show.legend = F) + 
+  scale_x_continuous(labels = scales::percent_format()) + 
+  scale_fill_viridis_d(begin = 0.4, end = 0.9) + 
+  labs(y = NULL, x = "LexTALE-ESP score") + 
+  ds4ling::ds4ling_bw_theme(base_size = 8) + 
+  theme(
+    axis.text.y = element_text(angle = 90, hjust = 0.5), 
+    plot.tag.position  = c(0.1, 0.9)
+  )
+
+mod1_p2 <- mod1_post |> 
+  filter(session == "diff") |> 
+  ggplot() + 
+  aes(x = estimate) + 
+  geom_vline(xintercept = 0, lty = 3) + 
+  stat_halfeye(
+    slab_fill = "#cc0033", 
+    pch = 21, point_fill = "white", show.legend = F
+  ) + 
+  coord_cartesian(xlim = c(-0.03, 0.07)) + 
+  scale_x_continuous(
+    breaks = seq(-0.02, 0.06, 0.02), 
+    labels = scales::percent_format()
+  ) + 
+  labs(y = NULL, x = "Post-test - pre-test difference") + 
+  ds4ling::ds4ling_bw_theme(base_size = 8) + 
+  theme(
+    axis.ticks.y = element_blank(), 
+    axis.text.y = element_blank(), 
+    plot.tag.position  = c(0.05, 0.9)
+  )
+
+mod0_p1 / (mod1_p1 + mod1_p2) + plot_annotation(tag_levels = "A") 
+  
+```
+
+{{< pagebreak >}}
+
+When stratifying by modality, we observe an overall higher rate of improvement in the online courses, a trend that appears to have carried over from our initial assessment in 2023-2024 with much less data. 
+Specifically, the average score for in-person classes at the beginning of the semester was `r modality_session_avgs[[1, 3]]` versus `r modality_session_avgs[[2, 3]]` at the end, representing an average gain of `r modality_avg_diff[[1, 2]]`. 
+For online courses, the average beginning-of-semester score was `r modality_session_avgs[[3, 3]]` versus `r modality_session_avgs[[4, 3]]` at the end, a difference of `r modality_avg_diff[[2, 2]]`. 
+@fig-lt-modality-session provides posterior means along with 95% and 66% credible intervals for beginning-of-semester vs. end-of-semester scores for online vs. in-person courses (left panel), as well as the average posterior difference between modalities (right panel). 
+
+```{r}
+#| label: fig-lt-modality-session
+#| fig-asp: 0.3
+#| fig-dpi: 300
+#| out-width: "100%"
+#| echo: false
+#| fig-cap: "LexTALE-ESP scores as a function of session and modality (left panel) and pre-test versus post-test differences (right panel). White points represent posterior means along with 95% and 66% highest density credible intervals."
+# Session by modality from model
+mod2_p1 <- mod2_post |> 
+  ungroup() |> 
+  mutate(
+    prop = plogis(.value), 
+    modality = str_to_title(modality), 
+    session = str_to_title(session), 
+    modality = fct_relevel(modality, "Online"), 
+    session = fct_relevel(session, "Pre")
+  ) |> 
+  ggplot() + 
+  aes(x = prop, y = modality, group = session, fill = session) + 
+  stat_halfeye(
+    pch = 21, point_fill = "white", 
+    position = position_dodge(0.5)
+  ) + 
+  scale_fill_viridis_d(name = NULL, begin = 0.4, end = 0.9) + 
+  scale_x_continuous(labels = scales::percent_format()) + 
+  labs(x = "LexTALE-ESP score", y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 8) + 
+  theme(
+    legend.position = "inside", 
+    legend.justification = c(1, 1), 
+    legend.background = element_blank(), 
+    axis.text.y = element_text(angle = 90, hjust = 0.5)
+  )
+
+mod2_p2 <- mod2_post |> 
+  select(modality, session, .draw, .value) |> 
+  pivot_wider(names_from = "session", values_from = .value) |> 
+  mutate(
+    diff = plogis(Post) - plogis(Pre), 
+    modality = fct_relevel(modality, "Online")
+  ) |> 
+  ggplot() + 
+  aes(x = diff, y = modality) + 
+  geom_vline(xintercept = 0, lty = 3) + 
+  stat_halfeye(pch = 21, point_fill = "white", slab_fill = "#cc0033") + 
+  labs(y = NULL, x = "Post-test - pre-test difference") + 
+  scale_x_continuous(labels = scales::percent_format()) + 
+  ds4ling::ds4ling_bw_theme(base_size = 8) + 
+  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())
+
+mod2_p1 + mod2_p2
+```
+
+Next, we examined beginning versus end-of-semester scores for each class (See @fig-lt-class-session). 
+Unsurprisingly, one can observe lower average scores at the beginning of the semester in 101 and higher average scores in 132. 
+The largest pre versus post difference was found for students in 102. 
+
+```{r}
+#| label: fig-lt-class-session
+#| fig-asp: 0.45
+#| fig-dpi: 300
+#| out-width: "100%"
+#| echo: false
+#| fig-cap: "Pre and post LexTALE-ESP scores for each course. White points represent posterior means along with 95% and 66% highest density credible intervals."
+# Session by course from model
+emmeans::emmeans(mod_3, specs = ~ course + session) |> 
+  gather_emmeans_draws() |> 
+  ungroup() |> 
+  mutate(
+    prop = plogis(.value), 
+    session = str_to_title(session), 
+    session = fct_relevel(session, "Pre")
+  ) |> 
+  ggplot() + 
+  aes(x = prop, y = course, group = session, fill = session) + 
+  stat_halfeye(
+    pch = 21, point_fill = "white", 
+    position = position_dodge(0.5)
+  ) + 
+  scale_y_discrete(limits = rev) + 
+  scale_fill_viridis_d(name = NULL, begin = 0.4, end = 0.9) + 
+  scale_x_continuous(labels = scales::percent_format()) + 
+  labs(x = "LexTALE-ESP score", y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 8) + 
+  theme(
+    legend.position = "inside", 
+    legend.justification = c(1, 1), 
+    legend.background = element_blank(), 
+    axis.text.y = element_text(angle = 90, hjust = 0.5)
+  )
+```
+
+Finally, we compared beginning-of-semester versus end-of-semester scores as a function of modality for each in-person course that had an online counterpart (i.e., 101, 131, and 132; note that in the time period under scrutiny, 102 has only been offered online and 121 is only offered in-person). 
+In all cases, post-test scores were higher, but larger gains occurred in online classes, particularly with regard to 101 and 131 (See @fig-lt-class-session-modality). 
+
+```{r}
+#| label: fig-lt-class-session-modality
+#| fig-asp: 0.45
+#| fig-dpi: 300
+#| out-width: "100%"
+#| echo: false
+#| fig-cap: "Comparison of in-person and online modalities for LexTALE-ESP scores in Spanish 101, 131, and 132. White points represent posterior averages along with 95% and 66% highest density credible intervals for pre and post-test sessions."
+emmeans::emmeans(mod_4, specs = ~ course + session + modality) |> 
+  gather_emmeans_draws() |> 
+  mutate(prop = plogis(.value)) |> 
+  ggplot() + 
+  aes(x = prop, y = modality, group = session, fill = session) + 
+  facet_grid(. ~ course) + 
+  stat_halfeye(pch = 21, point_fill = "white", position = position_dodge(0.5)) + 
+  scale_fill_viridis_d(name = NULL, begin = 0.4, end = 0.9) + 
+  scale_x_continuous(labels = scales::percent_format()) + 
+  labs(x = "LexTALE-ESP score", y = NULL) + 
+  ds4ling::ds4ling_bw_theme(base_size = 8) + 
+  theme(
+    legend.position = "inside", 
+    legend.justification = c(1, 0), 
+    legend.background = element_blank(), 
+    axis.text.y = element_text(angle = 90, hjust = 0.5), 
+    strip.background = element_rect(fill = "white")
+  )
+```
+
+As we have seen thus far, proficiency gains as measured by the LexTALE-ESP were small, but overall positive. 
+By exploring individual differences of complete cases, we observe that the majority of students do in fact improve over the course of a semester. @tbl-improvement presents the number of students with increasing and decreasing scores in each modality, along with the overall rate of improvement. 
+In short, nearly 57% of students scored higher on the LexTALE by the end of the semester, suggesting larger vocabulary sizes, and, in turn, higher proficiency in Spanish.
+
+```{r}
+#| label: tbl-improvement
+#| echo: false
+#| tbl-cap: "Descriptive statistics of LexTALE-ESP participation. The table includes the number of complete cases, the number of students with decreasing and increasing scores in the post-test, as well as the overall percentage of students showing improvement for each modality."
+
+rate_improvement |> 
+  select(
+    Modality = modality, `Complete cases` = complete_cases, 
+    `Score decreased` = `0`, `Score increased` = `1`, 
+    `% improvement` = rate
+  ) |> 
+  mutate(
+    Modality = str_to_title(Modality), 
+    Modality = if_else(Modality == "Overall", "\n*Overall*", Modality)
+  ) |>
+  knitr::kable()
+```
+
+## Implications
+
+::: {.callout-note icon="false"}
+## Please briefly explain how your department has used, or plans to use, the information collected. 
+
+In this space, please briefly describe how the assessment results were shared, or will be shared, with the faculty in your department. Then identify your department’s next steps and the timeframe during which your department expects to take its next steps.
+:::
+
+The LexTALE and the LexTALE-ESP are taken as general measures of vocabulary size, which correlates with language proficiency. 
+In this assessment we have used the LexTALE-ESP as a proxy to measure proficiency in Spanish. 
+The outlook obtained from the data in 2023-2024 was positive, and our larger sample size further substantiates our initial findings: the majority of students show improvement on the LexTALE-ESP over the course of one semester. 
+The rate of improvement appears to be slightly higher in online courses. 
+The LexTALE-ESP captures some degree of proficiency in Spanish and our students improve on the task over the course of a semester at all levels of the basic language program. 
+We can say with confidence that the majority of students in online classes increase their proficiency, as measured by this task. 
+
+Having said all the above, the results should be interpreted with caution for several reasons. 
+First, the overall amount of complete cases remains small. 
+While it is tempting to conclude that the online courses have *better* outcomes than the in-person courses, it is noteworthy that there was a suspiciously large number of perfect scores in the online classes. 
+To wit, monolingual Spanish speakers do not typically obtain perfect scores on this task. 
+Put simply, more data is needed and a clearer message to students to conceive of the task as a useful assessment of their current level--as opposed to an assignment they have to do well on--would be helpful. 
+
+Second, the sections included in this assessment are all 100-level courses. 
+In other words, all the participants are likely at the novice-low to novice-mid level, thus large proficiency gains should not be expected. 
+Interestingly, the largest pre- versus post-test difference we observed was for students in 102 (Elementary Spanish II). 
+Somewhat counterintuitive to expectations, scores from 121 fell somewhere between those of 101 and 102. 
+This may be explained by the fact that 121 is a "review and continuation" course for students that have taken Spanish in the past, but may be rusty. 
+It is not available to students who have taken the 101/102 sequence. 
+In short, it is possible that students taking 102 after having completed 101 start with a higher proficiency level than students placed into 121. 
+This information is useful when setting learning goals for both classes.
+
+Additionally, it seems feasible to assume that more progress may be made in general proficiency at the 200 or 300 levels, which we are not currently testing. 
+It is also possible that any modality effects can differ at different stages of the program and/or different stages of learning. 
+The decision to start our assessment in the basic language program was a practical one. 
+The basic language program has a language coordinator that is in constant contact with the instructors teaching these courses (typically graduate student TAs), which facilitates recruitment. 
+While testing in courses at the 200-400 levels would surely be helpful, the necessary infrastructure and coordination to administer the LexTALE-ESP and subsequently collect the data is lacking. 
+
+Finally, our assessment of proficiency is useful, but surely leaves out many critical components of this complex construct. 
+For instance, a task of this nature cannot tell us anything about intercultural competence, which is also a key part of the departmental learning goals. 
+Nonetheless, the LexTALE-ESP has been found to be serviceable by many researchers and more and more language departments are beginning to use it for placement and assessment purposes.  
+
+The results we have obtained support the Department's decision to broaden our online course offerings in Spanish and Portuguese (e.g., 121). 
+As the amount of data we have grows, we will expand our analyses to include longitudinal assessments of our majors and minors. 
+This will allow us to uncover specific time points/courses in which major proficiency gains occur, as well as model different learning trajectories for our students.
+A complete version of this updated report will be made available to all faculty and the results/implications will be considered in a future department meeting. 
+
+{{< pagebreak >}}
+
+# References
