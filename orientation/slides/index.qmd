@@ -1,7 +1,7 @@
 ---
 title: "Department of Spanish and Portuguese"
-subtitle: "Important Information for TAs AY 25-26"
-date: "2025-08-29"
+subtitle: "Important Information for TAs AY 26-27"
+date: "2026-08-28"
 format: rutgers-revealjs
 engine: knitr
 execute: 
@@ -37,11 +37,13 @@ Exceptions to this policy:
 
 - ~~If you have a student that does not want to leave the course after being told he would not receive credit, send him/her and e-mail explaining that s/he will not receive credit and COPY ME, particularly if the student is from SAS~~
 
+**This is no longer true, but you may still hear it**
+
 ## Placement (SAS Policy in Global Languages)
 
-- Placement exam closes **MONDAY, September 8th at 8 AM**. It reopens October 6th, 2025
+- Placement exam closes **FRIDAY, September 4th at 3PM**. It reopens in October.
 
-- Where can students find their placement results? Go to **MY COURSE LIST** tab in Degree Navigator.
+- Where can students find their placement results? Degree Navigator > **MY COURSE LIST** tab.
 
 - **PLACEMENT** results are listed at the bottom of the page
 
@@ -102,7 +104,7 @@ Exceptions to this policy:
 
 ## How to be flexible and maintain accountability {.smaller}
 
-- If a student cannot maintain pace of the course, it is best that s/he drops the course (see next slide for important Fall 2025 Dates)
+- If a student cannot maintain pace of the course, it is best that s/he drops the course (see next slide for important Fall 2026 Dates)
 - Be sure to file a warning grades when appropriate (you will receive a message from Registrars during week 8)
 - Office hours: on campus or video conference at least two hours per class per week
 - Accommodations for disabilities 
@@ -111,17 +113,16 @@ Exceptions to this policy:
 - "T" grades are for students that are missing specific components of the course, not for a student that is missing over 75% of the course requirements
 
 
-## Important Fall 2025 Dates {.smaller}
+## Important Fall 2026 Dates {.smaller}
 
-- Sept. 1: Labor Day - University closed
-- Sept. 2: Classes begin
-- Sept. 11: Last day to drop without a “W”, last day to add a course
+- Sept. 1: Classes begin
+- Sept. 10: Last day to drop without a “W”, last day to add a course
 - Oct. 7-18: Warning grade period
-- Oct. 21: Spring term schedule visible
-- Oct. 27: Last day to withdraw from individual classes with a "W"
-- Nov. 11: Registration for Spring term starts
+- Oct. 19: Spring term schedule visible
+- Oct. 26: Last day to withdraw from individual classes with a "W"
+- Nov. 5: Registration for Spring term starts
 - Dec. 10: Last day of classes
-- Dec. 11-12: Reading Days
+- Dec. 11, 14: Reading Days
 - Dec. 15-22: Final Exam period
 
 
